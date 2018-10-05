@@ -7,10 +7,7 @@ import org.apache.commons.lang.builder.ToStringStyle;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -76,5 +73,17 @@ public class UserController {
         users.add(new User());
 
         return users;
+    }
+
+    /**
+     * 根据id获取用户信息
+     * @param id
+     * @return
+     */
+    @RequestMapping(value = "/user/{id}",method = RequestMethod.GET)
+    public User getInfo(@PathVariable String id){
+        User user=new User();
+        user.setUsername("monkey");
+        return user;
     }
 }
