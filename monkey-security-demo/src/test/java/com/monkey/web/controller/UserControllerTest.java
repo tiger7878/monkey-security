@@ -36,6 +36,7 @@ public class UserControllerTest {
     @Test
     public void whenQuerySuccess() throws Exception {
         mockMvc.perform(get("/user") //get请求/user资源
+//                .param("username","monkey") //请求参数
                 .contentType(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(status().isOk()) //期望响应码200
                 .andExpect(jsonPath("$.length()").value(3)); //期望json集合中有3个元素
