@@ -18,6 +18,7 @@ import java.util.List;
  * @date: 2018/10/5 17:14
  */
 @RestController
+@RequestMapping("/user")
 public class UserController {
 
     /**
@@ -25,7 +26,7 @@ public class UserController {
      * @param username
      * @return
      */
-    @RequestMapping(value = "/user",method = RequestMethod.GET)
+    @GetMapping("/query")
     public List<User> query(@RequestParam(name = "username",required = false,defaultValue = "tom") String username){
         //打印请求参数
         System.out.println("username = "+username);
@@ -43,7 +44,7 @@ public class UserController {
      * @param userQueryCondition
      * @return
      */
-    @RequestMapping(value = "/user2",method = RequestMethod.GET)
+    @GetMapping("/query2")
     public List<User> query2(UserQueryCondition userQueryCondition){
         //打印请求参数
         System.out.println(ReflectionToStringBuilder.toString(userQueryCondition, ToStringStyle.MULTI_LINE_STYLE));
@@ -61,7 +62,7 @@ public class UserController {
      * @param pageable
      * @return
      */
-    @RequestMapping(value = "/user3",method = RequestMethod.GET)
+    @GetMapping("/query3")
     public List<User> query3(@PageableDefault(page = 1,size = 15,sort = "username",direction = Sort.Direction.DESC) Pageable pageable){
         //打印请求参数
         System.out.println("getPageNumber:"+pageable.getPageNumber());
@@ -81,7 +82,7 @@ public class UserController {
      * @param id
      * @return
      */
-    @RequestMapping(value = "/user/{id}",method = RequestMethod.GET)
+    @GetMapping("/user/{id}")
     public User getInfo(@PathVariable String id){
         User user=new User();
         user.setUsername("monkey");
@@ -94,7 +95,7 @@ public class UserController {
      * @param id
      * @return
      */
-    @RequestMapping(value = "/user2/{id:\\d+}",method = RequestMethod.GET)
+    @GetMapping("/user2/{id:\\d+}")
     public User getInfo2(@PathVariable String id){
         User user=new User();
         user.setUsername("monkey");
@@ -105,7 +106,7 @@ public class UserController {
      * 使用JsonView来指定要显示的字段-不显示密码
      * @return
      */
-    @RequestMapping(value = "/users4",method = RequestMethod.GET)
+    @GetMapping("/query4")
     @JsonView(User.UserSimpleView.class)
     public List<User> query4(){
         List<User> users=new ArrayList<User>();
@@ -120,7 +121,7 @@ public class UserController {
      * @param id
      * @return
      */
-    @RequestMapping(value = "/user3/{id}",method = RequestMethod.GET)
+    @GetMapping("/user3/{id}")
     @JsonView(User.UserDetailView.class)
     public User getInfo3(@PathVariable String id){
         User user=new User();

@@ -35,7 +35,7 @@ public class UserControllerTest {
 
     @Test
     public void whenQuerySuccess() throws Exception {
-        mockMvc.perform(get("/user") //get请求/user资源
+        mockMvc.perform(get("/user/query") //get请求/user资源
 //                .param("username","monkey") //请求参数
                 .contentType(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(status().isOk()) //期望响应码200
@@ -44,7 +44,7 @@ public class UserControllerTest {
 
     @Test
     public void whenQuerySuccess2() throws Exception {
-        mockMvc.perform(get("/user2") //get请求/user资源
+        mockMvc.perform(get("/user/query2") //get请求/user资源
                 .param("username","jack") //请求参数
                 .param("age","18") //请求参数
                 .param("ageTo","80") //请求参数
@@ -55,7 +55,7 @@ public class UserControllerTest {
 
     @Test
     public void whenQuerySuccess3() throws Exception {
-        mockMvc.perform(get("/user3") //get请求/user资源
+        mockMvc.perform(get("/user/query3") //get请求/user资源
                 .param("size","20") //请求参数
                 .param("page","5") //请求参数
                 .param("sort","age,desc") //请求参数
@@ -66,20 +66,20 @@ public class UserControllerTest {
 
     @Test
     public void testGetInfo() throws Exception {
-        mockMvc.perform(get("/user/1").contentType(MediaType.APPLICATION_JSON_UTF8))
+        mockMvc.perform(get("/user/user/1").contentType(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.username").value("monkey"));
     }
 
     @Test
     public void testGetInfo2() throws Exception {
-        mockMvc.perform(get("/user2/a").contentType(MediaType.APPLICATION_JSON_UTF8))
+        mockMvc.perform(get("/user/user2/a").contentType(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(status().is4xxClientError());
     }
 
     @Test
     public void whenQuerySuccess4() throws Exception {
-       String result= mockMvc.perform(get("/users4").contentType(MediaType.APPLICATION_JSON_UTF8))
+       String result= mockMvc.perform(get("/user/query4").contentType(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(status().isOk())
                .andReturn().getResponse().getContentAsString();//获取响应的值，放到string中
         System.out.println(result);
@@ -87,7 +87,7 @@ public class UserControllerTest {
 
     @Test
     public void testGetInfo3() throws Exception {
-        String result=mockMvc.perform(get("/user3/1").contentType(MediaType.APPLICATION_JSON_UTF8))
+        String result=mockMvc.perform(get("/user/user3/1").contentType(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(status().isOk())
                 .andReturn().getResponse().getContentAsString();
         System.out.println(result);
