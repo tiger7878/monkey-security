@@ -1,5 +1,6 @@
 package com.monkey.web.controller;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import com.monkey.dto.User;
 import com.monkey.dto.UserQueryCondition;
 import org.apache.commons.lang.builder.ReflectionToStringBuilder;
@@ -97,6 +98,34 @@ public class UserController {
     public User getInfo2(@PathVariable String id){
         User user=new User();
         user.setUsername("monkey");
+        return user;
+    }
+
+    /**
+     * 使用JsonView来指定要显示的字段-不显示密码
+     * @return
+     */
+    @RequestMapping(value = "/users4",method = RequestMethod.GET)
+    @JsonView(User.UserSimpleView.class)
+    public List<User> query4(){
+        List<User> users=new ArrayList<User>();
+        users.add(new User("monkey","123"));
+        users.add(new User("tom","456"));
+        users.add(new User("jack","789"));
+        return users;
+    }
+
+    /**
+     * 使用JsonView来指定要显示的字段-显示密码
+     * @param id
+     * @return
+     */
+    @RequestMapping(value = "/user3/{id}",method = RequestMethod.GET)
+    @JsonView(User.UserDetailView.class)
+    public User getInfo3(@PathVariable String id){
+        User user=new User();
+        user.setUsername("monkey");
+        user.setPassword("123");
         return user;
     }
 }

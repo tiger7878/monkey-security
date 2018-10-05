@@ -1,15 +1,32 @@
 package com.monkey.dto;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
 /**
  * @author: monkey
  * @date: 2018/10/5 17:13
  */
 public class User {
 
+    //JsonView需要用到的两个接口视图
+    public interface UserSimpleView{};
+    public interface UserDetailView extends UserSimpleView{};
+
     private String username;
 
     private String password;
 
+    public User() {
+
+    }
+
+    public User(String username, String password) {
+        this.username = username;
+        this.password = password;
+    }
+
+    //UserSimpleView视图展示该字段
+    @JsonView(UserSimpleView.class)
     public String getUsername() {
         return username;
     }
@@ -18,6 +35,8 @@ public class User {
         this.username = username;
     }
 
+    //UserDetailView视图展示该字段
+    @JsonView(UserDetailView.class)
     public String getPassword() {
         return password;
     }

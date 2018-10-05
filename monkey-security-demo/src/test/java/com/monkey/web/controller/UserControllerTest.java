@@ -77,4 +77,20 @@ public class UserControllerTest {
                 .andExpect(status().is4xxClientError());
     }
 
+    @Test
+    public void whenQuerySuccess4() throws Exception {
+       String result= mockMvc.perform(get("/users4").contentType(MediaType.APPLICATION_JSON_UTF8))
+                .andExpect(status().isOk())
+               .andReturn().getResponse().getContentAsString();//获取响应的值，放到string中
+        System.out.println(result);
+    }
+
+    @Test
+    public void testGetInfo3() throws Exception {
+        String result=mockMvc.perform(get("/user3/1").contentType(MediaType.APPLICATION_JSON_UTF8))
+                .andExpect(status().isOk())
+                .andReturn().getResponse().getContentAsString();
+        System.out.println(result);
+    }
+
 }
