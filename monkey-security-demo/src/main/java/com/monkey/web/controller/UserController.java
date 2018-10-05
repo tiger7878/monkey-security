@@ -86,4 +86,17 @@ public class UserController {
         user.setUsername("monkey");
         return user;
     }
+
+    /**
+     * 根据id获取用户信息
+     * 请求参数用正则来限定只能是数字
+     * @param id
+     * @return
+     */
+    @RequestMapping(value = "/user2/{id:\\d+}",method = RequestMethod.GET)
+    public User getInfo2(@PathVariable String id){
+        User user=new User();
+        user.setUsername("monkey");
+        return user;
+    }
 }
