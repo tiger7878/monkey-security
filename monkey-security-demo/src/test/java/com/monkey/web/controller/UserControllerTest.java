@@ -53,4 +53,15 @@ public class UserControllerTest {
                 .andExpect(jsonPath("$.length()").value(3)); //期望json集合中有3个元素
     }
 
+    @Test
+    public void whenQuerySuccess3() throws Exception {
+        mockMvc.perform(get("/user3") //get请求/user资源
+                .param("size","20") //请求参数
+                .param("page","5") //请求参数
+                .param("sort","age,desc") //请求参数
+                .contentType(MediaType.APPLICATION_JSON_UTF8))
+                .andExpect(status().isOk()) //期望响应码200
+                .andExpect(jsonPath("$.length()").value(3)); //期望json集合中有3个元素
+    }
+
 }
