@@ -3,6 +3,7 @@ package com.monkey.web.controller;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.monkey.dto.User;
 import com.monkey.dto.UserQueryCondition;
+import com.monkey.exception.UserNotExistException;
 import org.apache.commons.lang.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
 import org.springframework.data.domain.Pageable;
@@ -89,7 +90,8 @@ public class UserController {
     public User getInfo(@PathVariable String id){
         //测试异常
         if (id.equals("3")){
-            throw new RuntimeException("user not exist");
+//            throw new RuntimeException("user not exist");
+            throw new UserNotExistException(id);//抛出自定义异常
         }
 
         User user=new User();
