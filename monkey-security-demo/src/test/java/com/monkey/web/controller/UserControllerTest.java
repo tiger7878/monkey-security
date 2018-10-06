@@ -6,11 +6,13 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
+import java.io.UnsupportedEncodingException;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.ZoneId;
@@ -154,6 +156,16 @@ public class UserControllerTest {
     public void testDelete() throws Exception {
         mockMvc.perform(delete("/user/1").contentType(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(status().isOk());
+    }
+
+    @Test
+    public void testUpload() throws Exception {
+        //模拟创建一个test.txt，里面的内容是：hello upload
+       String result= mockMvc.perform(fileUpload("/file")
+                .file(new MockMultipartFile("file","test.txt","multipart/form-data","hello upload".getBytes("UTF-8"))))
+                .andExpect(status().isOk())
+                .andReturn().getResponse().getContentAsString();
+        System.out.println("result : "+result);
     }
 
 }
