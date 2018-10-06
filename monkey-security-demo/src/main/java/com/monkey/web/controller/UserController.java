@@ -207,4 +207,13 @@ public class UserController {
         user.setId("1");
         return user;
     }
+
+    /**
+     * delete使用delete方式
+     * @param id
+     */
+    @DeleteMapping("/{id:\\d+}")
+    public void delete(@PathVariable String id){
+        System.out.println("id : "+id);
+    }
 }
