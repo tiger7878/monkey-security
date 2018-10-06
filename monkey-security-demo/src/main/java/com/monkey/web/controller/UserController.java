@@ -134,12 +134,25 @@ public class UserController {
     /**
      * 创建
      * RequestBody可以把请求的json字符串转换成实体对象中的属性值
-     * Valid标签可以让实体进行校验
      * @param user
      * @return
      */
     @PostMapping("/create")
-    public User create(@Valid @RequestBody User user){
+    public User create(@RequestBody User user){
+        System.out.println(user);
+        user.setId("1");
+        return user;
+    }
+
+    /**
+     * 创建
+     * RequestBody可以把请求的json字符串转换成实体对象中的属性值
+     * Valid标签可以让实体进行校验
+     * @param user
+     * @return
+     */
+    @PostMapping("/create2")
+    public User create2(@Valid @RequestBody User user){
         System.out.println(user);
         user.setId("1");
         return user;

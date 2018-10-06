@@ -100,12 +100,25 @@ public class UserControllerTest {
     public void testCreate() throws Exception {
         Date date=new Date();
         System.out.println(date.getTime());//发请求的时候传递也是时间戳，响应回去也是时间戳
-//        String content="{\"username\":\"monkey\",\"password\":\"123\",\"birthday\":"+date.getTime()+"}";//正常的参数
-        String content="{\"username\":\"monkey\",\"password\":null,\"birthday\":"+date.getTime()+"}";//异常的参数
+        String content="{\"username\":\"monkey\",\"password\":\"123\",\"birthday\":"+date.getTime()+"}";
        String result= mockMvc.perform(post("/user/create").contentType(MediaType.APPLICATION_JSON_UTF8).content(content))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").value("1"))
                 .andReturn().getResponse().getContentAsString();
         System.out.println(result);
     }
+
+    @Test
+    public void testCreate2() throws Exception {
+        Date date=new Date();
+        System.out.println(date.getTime());//发请求的时候传递也是时间戳，响应回去也是时间戳
+//        String content="{\"username\":\"monkey\",\"password\":\"123\",\"birthday\":"+date.getTime()+"}";//正常的参数
+        String content="{\"username\":\"monkey\",\"password\":null,\"birthday\":"+date.getTime()+"}";//异常的参数
+        String result= mockMvc.perform(post("/user/create2").contentType(MediaType.APPLICATION_JSON_UTF8).content(content))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.id").value("1"))
+                .andReturn().getResponse().getContentAsString();
+        System.out.println(result);
+    }
+
 }
