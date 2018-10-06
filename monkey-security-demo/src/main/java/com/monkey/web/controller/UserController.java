@@ -10,6 +10,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -133,11 +134,12 @@ public class UserController {
     /**
      * 创建
      * RequestBody可以把请求的json字符串转换成实体对象中的属性值
+     * Valid标签可以让实体进行校验
      * @param user
      * @return
      */
     @PostMapping("/create")
-    public User create(@RequestBody User user){
+    public User create(@Valid @RequestBody User user){
         System.out.println(user);
         user.setId("1");
         return user;

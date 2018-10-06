@@ -1,6 +1,7 @@
 package com.monkey.dto;
 
 import com.fasterxml.jackson.annotation.JsonView;
+import org.hibernate.validator.constraints.NotBlank;
 
 import java.util.Date;
 
@@ -18,6 +19,8 @@ public class User {
 
     private String username;
 
+    //不能为空
+    @NotBlank
     private String password;
 
     private Date birthday;
