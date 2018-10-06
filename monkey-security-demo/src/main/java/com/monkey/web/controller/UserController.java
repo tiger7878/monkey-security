@@ -8,6 +8,7 @@ import org.apache.commons.lang.builder.ToStringStyle;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -147,12 +148,34 @@ public class UserController {
     /**
      * 创建
      * RequestBody可以把请求的json字符串转换成实体对象中的属性值
-     * Valid标签可以让实体进行校验
+     * Valid标签可以让实体进行校验，传参数错误请求就被拦截
      * @param user
      * @return
      */
     @PostMapping("/create2")
     public User create2(@Valid @RequestBody User user){
+        System.out.println(user);
+        user.setId("1");
+        return user;
+    }
+
+    /**
+     * 创建
+     * RequestBody可以把请求的json字符串转换成实体对象中的属性值
+     * Valid标签可以让实体进行校验，
+     * BindingResult：传参数错误后请求可以进入方法，由自行控制是否往下执行
+     * @param user
+     * @return
+     */
+    @PostMapping("/create3")
+    public User create3(@Valid @RequestBody User user, BindingResult bindingResult){
+
+        //判断传入的参数是否有问题
+        if (bindingResult.hasErrors()){
+            //打印所有错误信息
+            bindingResult.getAllErrors().stream().forEach(error-> System.out.println(error.getDefaultMessage()));
+        }
+
         System.out.println(user);
         user.setId("1");
         return user;
