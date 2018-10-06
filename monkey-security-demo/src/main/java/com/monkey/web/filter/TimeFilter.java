@@ -11,7 +11,7 @@ import java.util.Date;
  * @author: monkey
  * @date: 2018/10/6 15:33
  */
-@Component
+//@Component //模拟第三方过滤器时先注释掉，自定义过滤器时记得恢复
 public class TimeFilter implements Filter {
 
     @Override
