@@ -2,6 +2,8 @@ package com.monkey.dto;
 
 import com.fasterxml.jackson.annotation.JsonView;
 
+import java.util.Date;
+
 /**
  * @author: monkey
  * @date: 2018/10/5 17:13
@@ -17,6 +19,8 @@ public class User {
     private String username;
 
     private String password;
+
+    private Date birthday;
 
     public User() {
 
@@ -56,12 +60,22 @@ public class User {
         this.id = id;
     }
 
+    @JsonView(UserSimpleView.class)
+    public Date getBirthday() {
+        return birthday;
+    }
+
+    public void setBirthday(Date birthday) {
+        this.birthday = birthday;
+    }
+
     @Override
     public String toString() {
         return "User{" +
                 "id='" + id + '\'' +
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
+                ", birthday=" + birthday +
                 '}';
     }
 }
