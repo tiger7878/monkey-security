@@ -1,6 +1,7 @@
 package com.monkey.dto;
 
 import com.fasterxml.jackson.annotation.JsonView;
+import com.monkey.validator.MyConstraint;
 import org.hibernate.validator.constraints.NotBlank;
 
 import javax.validation.constraints.Past;
@@ -18,6 +19,7 @@ public class User {
 
     private String id;
 
+    @MyConstraint(message = "自定义错误校验")
     private String username;
 
     //不能为空
