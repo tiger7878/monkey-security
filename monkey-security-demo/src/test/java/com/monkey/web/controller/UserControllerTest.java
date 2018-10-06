@@ -12,6 +12,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -93,4 +94,11 @@ public class UserControllerTest {
         System.out.println(result);
     }
 
+    @Test
+    public void testCreate() throws Exception {
+        String content="{\"username\":\"monkey\",\"password\":\"123\"}";
+        mockMvc.perform(post("/user/create").contentType(MediaType.APPLICATION_JSON_UTF8).content(content))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.id").value("1"));
+    }
 }

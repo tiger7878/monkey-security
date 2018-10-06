@@ -12,6 +12,8 @@ public class User {
     public interface UserSimpleView{};
     public interface UserDetailView extends UserSimpleView{};
 
+    private String id;
+
     private String username;
 
     private String password;
@@ -44,4 +46,23 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
+
+    @JsonView(UserSimpleView.class)
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id='" + id + '\'' +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                '}';
+    }
 }
+
