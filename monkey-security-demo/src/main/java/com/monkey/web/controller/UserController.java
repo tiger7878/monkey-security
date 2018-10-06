@@ -85,7 +85,7 @@ public class UserController {
      * @param id
      * @return
      */
-    @GetMapping("/user/{id}")
+    @GetMapping("/{id}")
     public User getInfo(@PathVariable String id){
         User user=new User();
         user.setUsername("monkey");
@@ -139,7 +139,7 @@ public class UserController {
      * @param user
      * @return
      */
-    @PostMapping("/create")
+    @PostMapping
     public User create(@RequestBody User user){
         System.out.println(user);
         user.setId("1");
@@ -188,7 +188,7 @@ public class UserController {
      * @param bindingResult
      * @return
      */
-    @PutMapping("/update")
+    @PutMapping
     public User update(@Valid @RequestBody User user, BindingResult bindingResult){
 
         //判断传入的参数是否有问题

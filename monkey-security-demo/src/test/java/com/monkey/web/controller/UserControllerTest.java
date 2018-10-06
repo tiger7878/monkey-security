@@ -71,7 +71,7 @@ public class UserControllerTest {
 
     @Test
     public void testGetInfo() throws Exception {
-        mockMvc.perform(get("/user/user/1").contentType(MediaType.APPLICATION_JSON_UTF8))
+        mockMvc.perform(get("/user/1").contentType(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.username").value("monkey"));
     }
@@ -103,7 +103,7 @@ public class UserControllerTest {
         Date date=new Date();
         System.out.println(date.getTime());//发请求的时候传递也是时间戳，响应回去也是时间戳
         String content="{\"username\":\"monkey\",\"password\":\"123\",\"birthday\":"+date.getTime()+"}";
-       String result= mockMvc.perform(post("/user/create").contentType(MediaType.APPLICATION_JSON_UTF8).content(content))
+       String result= mockMvc.perform(post("/user").contentType(MediaType.APPLICATION_JSON_UTF8).content(content))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").value("1"))
                 .andReturn().getResponse().getContentAsString();
@@ -143,7 +143,7 @@ public class UserControllerTest {
         System.out.println(date.getTime());//发请求的时候传递也是时间戳，响应回去也是时间戳
 //        String content="{\"username\":\"monkey\",\"password\":\"123\",\"birthday\":"+date.getTime()+"}";//正常的参数
         String content="{\"id\":\"2\",\"username\":\"Tom\",\"password\":null,\"birthday\":"+date.getTime()+"}";//异常的参数
-        String result= mockMvc.perform(put("/user/update").contentType(MediaType.APPLICATION_JSON_UTF8).content(content))
+        String result= mockMvc.perform(put("/user").contentType(MediaType.APPLICATION_JSON_UTF8).content(content))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").value("1"))
                 .andReturn().getResponse().getContentAsString();
