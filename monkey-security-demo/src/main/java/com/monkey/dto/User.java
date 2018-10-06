@@ -3,6 +3,7 @@ package com.monkey.dto;
 import com.fasterxml.jackson.annotation.JsonView;
 import org.hibernate.validator.constraints.NotBlank;
 
+import javax.validation.constraints.Past;
 import java.util.Date;
 
 /**
@@ -20,9 +21,11 @@ public class User {
     private String username;
 
     //不能为空
-    @NotBlank
+    @NotBlank(message = "密码不能为空")
     private String password;
 
+    //过去的时间
+    @Past(message = "生日必须为过去的时间")
     private Date birthday;
 
     public User() {

@@ -9,6 +9,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -174,6 +175,32 @@ public class UserController {
         if (bindingResult.hasErrors()){
             //打印所有错误信息
             bindingResult.getAllErrors().stream().forEach(error-> System.out.println(error.getDefaultMessage()));
+        }
+
+        System.out.println(user);
+        user.setId("1");
+        return user;
+    }
+
+    /**
+     * update使用put方式
+     * @param user
+     * @param bindingResult
+     * @return
+     */
+    @PutMapping("/update")
+    public User update(@Valid @RequestBody User user, BindingResult bindingResult){
+
+        //判断传入的参数是否有问题
+        if (bindingResult.hasErrors()){
+            System.out.println("出现错误信息了=========start=========");
+            //打印所有错误信息
+            bindingResult.getAllErrors().stream().forEach(error-> {
+                FieldError fieldError= (FieldError) error;
+                String message=fieldError.getField()+"："+fieldError.getDefaultMessage();
+                System.out.println(message);
+            });
+            System.out.println("出现错误信息了=========end=========");
         }
 
         System.out.println(user);
