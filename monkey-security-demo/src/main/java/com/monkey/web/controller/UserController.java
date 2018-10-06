@@ -87,6 +87,11 @@ public class UserController {
      */
     @GetMapping("/{id}")
     public User getInfo(@PathVariable String id){
+        //测试异常
+        if (id.equals("3")){
+            throw new RuntimeException("user not exist");
+        }
+
         User user=new User();
         user.setUsername("monkey");
         return user;
