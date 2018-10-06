@@ -88,10 +88,14 @@ public class UserController {
      */
     @GetMapping("/{id}")
     public User getInfo(@PathVariable String id){
+
+        System.out.println("进入getInfo服务！");
+
         //测试异常
         if (id.equals("3")){
-//            throw new RuntimeException("user not exist");
             throw new UserNotExistException(id);//抛出自定义异常
+        }else if (id.equals("2")){
+            throw new RuntimeException("user not exist");//非自定义异常
         }
 
         User user=new User();
