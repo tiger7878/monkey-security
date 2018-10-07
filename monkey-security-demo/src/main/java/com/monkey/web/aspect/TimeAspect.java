@@ -12,8 +12,9 @@ import java.util.Date;
  * @author: monkey
  * @date: 2018/10/6 16:44
  */
-@Aspect
-@Component
+//先注释掉，影响开发
+//@Aspect
+//@Component
 public class TimeAspect {
 
     //环绕拦截UserController下所有方法

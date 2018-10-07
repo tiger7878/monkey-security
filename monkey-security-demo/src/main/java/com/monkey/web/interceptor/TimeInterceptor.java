@@ -14,7 +14,7 @@ import java.util.Date;
  * @author: monkey
  * @date: 2018/10/6 16:06
  */
-@Component //不要忘记这个注解
+//@Component //不要忘记这个注解，先注释掉，影响开发
 public class TimeInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object handler) throws Exception {
