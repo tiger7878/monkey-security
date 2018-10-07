@@ -39,8 +39,8 @@ public class MyUserDetailsService implements UserDetailsService {
 //                AuthorityUtils.commaSeparatedStringToAuthorityList("admin"));
 
         //配置了PasswordEncoder以后对明文密码加解密操作
-        String password=passwordEncoder.encode("123456");//真实场景这一步在注册的时候做，保存到数据库中。
-        // 这里实际还是该明文，因为我们没有用数据库，所以这里才加密。
+        String password=passwordEncoder.encode("123456");//真实场景这一步在注册的时候做加密，然后保存到数据库中。
+        // 这里实际是从数据库中读取加密后的密码。
         logger.info("数据库中的密码是："+password);
         return new User(username, password,
                 true, true, true, true,
