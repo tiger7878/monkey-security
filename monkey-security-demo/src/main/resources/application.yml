@@ -10,3 +10,9 @@ spring:
 security:
   basic:
     enabled: false #关闭基本认证
+
+#关闭redis的健康检查，生产环境需要注释掉这个
+management:
+  health:
+    redis:
+      enabled: false
