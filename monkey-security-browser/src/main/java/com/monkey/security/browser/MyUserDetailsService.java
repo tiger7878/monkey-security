@@ -34,10 +34,16 @@ public class MyUserDetailsService implements UserDetailsService {
 //        return new User(username,"123456", AuthorityUtils.commaSeparatedStringToAuthorityList("admin"));
 
         //根据查找到的用户信息判断用户是否被冻结
-        return new User(username, "123456",
+//        return new User(username, "123456",
+//                true, true, true, true,
+//                AuthorityUtils.commaSeparatedStringToAuthorityList("admin"));
+
+        //配置了PasswordEncoder以后对明文密码加解密操作
+        String password=passwordEncoder.encode("123456");//真实场景这一步在注册的时候做，保存到数据库中。
+        // 这里实际还是该明文，因为我们没有用数据库，所以这里才加密。
+        logger.info("数据库中的密码是："+password);
+        return new User(username, password,
                 true, true, true, true,
                 AuthorityUtils.commaSeparatedStringToAuthorityList("admin"));
-
-
     }
 }
