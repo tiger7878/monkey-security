@@ -1,5 +1,7 @@
 package com.monkey.dto;
 
+import io.swagger.annotations.ApiModelProperty;
+
 /**
  * 查询参数实体
  * @author: monkey
@@ -11,6 +13,7 @@ public class UserQueryCondition {
     /**
      * 年龄起始值
      */
+    @ApiModelProperty(value = "用户年龄起始值")
     private int age;
 
     /**

@@ -4,6 +4,10 @@ import com.fasterxml.jackson.annotation.JsonView;
 import com.monkey.dto.User;
 import com.monkey.dto.UserQueryCondition;
 import com.monkey.exception.UserNotExistException;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.apache.commons.lang.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
 import org.springframework.data.domain.Pageable;
@@ -23,6 +27,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/user")
+@Api(value = "UserController",description = "用户控制器")
 public class UserController {
 
     /**
@@ -31,6 +36,8 @@ public class UserController {
      * @return
      */
     @GetMapping("/query")
+    @ApiOperation(value = "用户列表查询服务1",notes = "根据用户名查询")
+    @ApiImplicitParam(name = "username",value = "姓名")
     public List<User> query(@RequestParam(name = "username",required = false,defaultValue = "tom") String username){
         //打印请求参数
         System.out.println("username = "+username);
@@ -49,6 +56,7 @@ public class UserController {
      * @return
      */
     @GetMapping("/query2")
+    @ApiOperation(value = "用户列表查询服务2",notes = "根据查询实体查询")
     public List<User> query2(UserQueryCondition userQueryCondition){
         //打印请求参数
         System.out.println(ReflectionToStringBuilder.toString(userQueryCondition, ToStringStyle.MULTI_LINE_STYLE));
