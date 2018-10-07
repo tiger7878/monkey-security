@@ -7,9 +7,9 @@ spring:
   session:
     store-type: none #关闭spring session
 
-security:
-  basic:
-    enabled: false #关闭基本认证
+#security:
+#  basic:
+#    enabled: false #关闭spring security
 
 #关闭redis的健康检查，生产环境需要注释掉这个
 management:
