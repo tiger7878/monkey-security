@@ -69,6 +69,11 @@
             <artifactId>commons-beanutils</artifactId>
         </dependency>
 
+        <!--配置注解ConfigurationProperties-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-configuration-processor</artifactId>
+        </dependency>
     </dependencies>
 
 </project>

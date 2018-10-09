@@ -1,5 +1,7 @@
 package com.monkey.security.browser;
 
+import com.monkey.security.core.properties.SecurityProperties;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -15,6 +17,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @Configuration
 public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
 
+    @Autowired
+    private SecurityProperties securityProperties;
+
     //密码加解密用它
     @Bean
     public PasswordEncoder passwordEncoder(){
@@ -25,12 +30,13 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.formLogin()//form表单认证-页面
-                .loginPage("/signIn.html")//自定义登录页面：在resources文件夹下
+                .loginPage("/authentication/require")//自定义登录页面：在resources文件夹下
                 .loginProcessingUrl("/authentication/form")//处理登录的url地址 spring security的
 //          http.httpBasic()//basic认证-弹框
                 .and()
                 .authorizeRequests()
-                .antMatchers("/signIn.html").permitAll()//登录页面不需要认证就可以访问
+                .antMatchers("/authentication/require",
+                        securityProperties.getBrowser().getLoginPage()).permitAll()//登录页面不需要认证就可以访问
                 .anyRequest().authenticated()//所有请求都需要认证
                 .and()
                 .csrf().disable();//先禁用csrf的防护，后面再开启

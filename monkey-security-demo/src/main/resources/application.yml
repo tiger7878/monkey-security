@@ -16,3 +16,9 @@ management:
   health:
     redis:
       enabled: false
+
+#配置自定义的登录页面，如果不配置就用默认的标准登录页
+monkey:
+  security:
+    browser:
+      loginPage: /demo-signIn.html
