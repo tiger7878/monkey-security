@@ -1,5 +1,7 @@
 package com.monkey.security.browser;
 
+import com.monkey.security.browser.authentication.MonkeyAuthenctiationFailureHandler;
+import com.monkey.security.browser.authentication.MonkeyAuthenticationSuccessHandler;
 import com.monkey.security.core.properties.SecurityProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -20,6 +22,12 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private SecurityProperties securityProperties;
 
+    @Autowired
+    private MonkeyAuthenticationSuccessHandler monkeyAuthenticationSuccessHandler;//登录成功的处理
+
+    @Autowired
+    private MonkeyAuthenctiationFailureHandler monkeyAuthenctiationFailureHandler;//登录失败的处理
+
     //密码加解密用它
     @Bean
     public PasswordEncoder passwordEncoder(){
@@ -32,6 +40,8 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
         http.formLogin()//form表单认证-页面
                 .loginPage("/authentication/require")//自定义登录页面：在resources文件夹下
                 .loginProcessingUrl("/authentication/form")//处理登录的url地址 spring security的
+                .successHandler(monkeyAuthenticationSuccessHandler)//登录成功的处理
+                .failureHandler(monkeyAuthenctiationFailureHandler)//登录失败的处理
 //          http.httpBasic()//basic认证-弹框
                 .and()
                 .authorizeRequests()

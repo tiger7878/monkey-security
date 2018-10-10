@@ -9,11 +9,21 @@ public class BrowserProperties {
 
     private String loginPage="/monkey-signIn.html";//默认的登录页面
 
+    private LoginResponseType loginType=LoginResponseType.JSON;//默认json
+
     public String getLoginPage() {
         return loginPage;
     }
 
     public void setLoginPage(String loginPage) {
         this.loginPage = loginPage;
+    }
+
+    public LoginResponseType getLoginType() {
+        return loginType;
+    }
+
+    public void setLoginType(LoginResponseType loginType) {
+        this.loginType = loginType;
     }
 }
