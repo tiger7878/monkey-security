@@ -13,9 +13,14 @@ import org.apache.commons.lang.builder.ToStringStyle;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
+import sun.plugin.liveconnect.SecurityContextHelper;
 
 import javax.validation.Valid;
 import java.util.ArrayList;
@@ -29,6 +34,32 @@ import java.util.List;
 @RequestMapping("/user")
 @Api(value = "UserController",description = "用户控制器")
 public class UserController {
+
+    /**
+     * 获取认证信息 Authentication
+     * 这个信息比较全
+     * @param authentication 自动注入的认证后信息
+     * @return
+     */
+    @GetMapping("/authentication")
+    public Object getCurrentAuthentication(Authentication authentication){
+        //方式一：
+//        return SecurityContextHolder.getContext().getAuthentication();
+
+        //方式二：
+        return authentication;
+    }
+
+    /**
+     * 获取认证后的用户信息 UserDetails
+     * 这个没有上面那个那么全，根据需求决定响应什么
+     * @param userDetails 认证后的用户信息
+     * @return
+     */
+    @GetMapping("/userDetails")
+    public Object getCurrentUserDetails(@AuthenticationPrincipal UserDetails userDetails){
+        return userDetails;
+    }
 
     /**
      * 请求参数写到方法中
