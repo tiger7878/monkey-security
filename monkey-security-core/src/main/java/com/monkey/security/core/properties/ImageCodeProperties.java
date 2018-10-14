@@ -29,6 +29,11 @@ public class ImageCodeProperties {
      */
     private int expireIn = 60;
 
+    /**
+     * 需要拦截的url，多个用逗号隔开
+     */
+    private String url;
+
     public int getWidth() {
         return width;
     }
@@ -59,5 +64,13 @@ public class ImageCodeProperties {
 
     public void setExpireIn(int expireIn) {
         this.expireIn = expireIn;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 }

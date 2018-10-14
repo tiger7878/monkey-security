@@ -27,3 +27,4 @@ monkey:
       image:
         length: 6
         width: 100
+        url: /user/* #配置哪些接口需要被验证码拦截
