@@ -1,0 +1,28 @@
+package com.monkey.security.core.validate.code;
+
+import com.monkey.security.core.properties.SecurityProperties;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+/**
+ * 验证码实体配置类
+ * @author: monkey
+ * @date: 2018/10/14 16:25
+ */
+@Configuration
+public class ValidateCodeBeanConfig {
+
+    @Autowired
+    private SecurityProperties securityProperties;
+
+    @Bean
+    @ConditionalOnMissingBean(name = "imageCodeGenerator")
+    public ValidateCodeGenerator imageCodeGenerator(){
+        ImageCodeGenerator codeGenerator=new ImageCodeGenerator();
+        codeGenerator.setSecurityProperties(securityProperties);
+        return codeGenerator;
+    }
+
+}
