@@ -3,6 +3,7 @@ package com.monkey.security.browser;
 import com.monkey.security.browser.authentication.MonkeyAuthenctiationFailureHandler;
 import com.monkey.security.browser.authentication.MonkeyAuthenticationSuccessHandler;
 import com.monkey.security.core.properties.SecurityProperties;
+import com.monkey.security.core.validate.code.ValidateCodeFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -10,6 +11,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 /**
  * 配置类
@@ -37,7 +39,12 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.formLogin()//form表单认证-页面
+        //创建验证码对象
+        ValidateCodeFilter validateCodeFilter=new ValidateCodeFilter();
+        validateCodeFilter.setAuthenticationFailureHandler(monkeyAuthenctiationFailureHandler);
+
+        http.addFilterBefore(validateCodeFilter, UsernamePasswordAuthenticationFilter.class)//在UsernamePasswordAuthenticationFilter之前添加ValidateCodeFilter过滤器
+                .formLogin()//form表单认证-页面
                 .loginPage("/authentication/require")//自定义登录页面：在resources文件夹下
                 .loginProcessingUrl("/authentication/form")//处理登录的url地址 spring security的
                 .successHandler(monkeyAuthenticationSuccessHandler)//登录成功的处理
@@ -46,7 +53,8 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests()
                 .antMatchers("/authentication/require",
-                        securityProperties.getBrowser().getLoginPage()).permitAll()//登录页面不需要认证就可以访问
+                        securityProperties.getBrowser().getLoginPage(),
+                        "/code/image").permitAll()//登录页面不需要认证就可以访问
                 .anyRequest().authenticated()//所有请求都需要认证
                 .and()
                 .csrf().disable();//先禁用csrf的防护，后面再开启
