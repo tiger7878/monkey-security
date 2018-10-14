@@ -18,8 +18,12 @@ management:
       enabled: false
 
 #配置安全相关
-#monkey:
-#  security:
+monkey:
+  security:
 #    browser:
 #      loginPage: /demo-signIn.html #自定义登录页面，如果不配置就用默认的标准登录页
 #      loginType: REDIRECT #登录方式页面跳转，默认json
+    code:
+      image:
+        length: 6
+        width: 100
