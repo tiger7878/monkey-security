@@ -10,7 +10,7 @@ import org.springframework.web.context.request.ServletWebRequest;
  * @author: monkey
  * @date: 2018/10/14 16:32
  */
-@Component("imageCodeGenerator")
+//@Component("imageCodeGenerator") //先注释掉，这个类只是用于测试
 public class DemoImageCodeGenerator implements ValidateCodeGenerator {
     @Override
     public ImageCode generate(ServletWebRequest request) {

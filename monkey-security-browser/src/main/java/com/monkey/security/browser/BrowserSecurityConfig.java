@@ -56,7 +56,7 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/authentication/require",
                         securityProperties.getBrowser().getLoginPage(),
-                        "/code/image").permitAll()//登录页面不需要认证就可以访问
+                        "/code/*").permitAll()//登录页面、验证码接口不需要认证就可以访问
                 .anyRequest().authenticated()//所有请求都需要认证
                 .and()
                 .csrf().disable();//先禁用csrf的防护，后面再开启

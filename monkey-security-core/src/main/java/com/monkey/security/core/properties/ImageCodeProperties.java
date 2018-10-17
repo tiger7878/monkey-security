@@ -6,7 +6,7 @@ package com.monkey.security.core.properties;
  * @author: monkey
  * @date: 2018/10/14 12:05
  */
-public class ImageCodeProperties {
+public class ImageCodeProperties extends SmsCodeProperties {
 
     /**
      * 宽度
@@ -18,21 +18,9 @@ public class ImageCodeProperties {
      */
     private int height = 23;
 
-    /**
-     * 字符个数
-     */
-    private int length = 4;
-
-
-    /**
-     * 失效时间
-     */
-    private int expireIn = 60;
-
-    /**
-     * 需要拦截的url，多个用逗号隔开
-     */
-    private String url;
+    public ImageCodeProperties() {
+        setLength(4);//图片验证码默认长度为4
+    }
 
     public int getWidth() {
         return width;
@@ -50,27 +38,4 @@ public class ImageCodeProperties {
         this.height = height;
     }
 
-    public int getLength() {
-        return length;
-    }
-
-    public void setLength(int length) {
-        this.length = length;
-    }
-
-    public int getExpireIn() {
-        return expireIn;
-    }
-
-    public void setExpireIn(int expireIn) {
-        this.expireIn = expireIn;
-    }
-
-    public String getUrl() {
-        return url;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
-    }
 }
