@@ -1,6 +1,7 @@
 package com.monkey.security.core.validate.code;
 
 import com.monkey.security.core.properties.SecurityProperties;
+import com.monkey.security.core.validate.code.image.ImageCode;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;

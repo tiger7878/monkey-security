@@ -1,6 +1,8 @@
-package com.monkey.security.core.validate.code;
+package com.monkey.security.core.validate.code.image;
 
 import com.monkey.security.core.properties.SecurityProperties;
+import com.monkey.security.core.validate.code.ValidateCodeGenerator;
+import com.monkey.security.core.validate.code.image.ImageCode;
 import org.springframework.web.bind.ServletRequestUtils;
 import org.springframework.web.context.request.ServletWebRequest;
 
@@ -13,7 +15,7 @@ import java.util.Random;
  * @author: monkey
  * @date: 2018/10/14 16:19
  */
-public class ImageCodeGenerator implements ValidateCodeGenerator{
+public class ImageCodeGenerator implements ValidateCodeGenerator {
 
     private SecurityProperties securityProperties;
 

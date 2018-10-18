@@ -1,4 +1,6 @@
-package com.monkey.security.core.validate.code;
+package com.monkey.security.core.validate.code.image;
+
+import com.monkey.security.core.validate.code.ValidateCode;
 
 import java.awt.image.BufferedImage;
 import java.time.LocalDateTime;

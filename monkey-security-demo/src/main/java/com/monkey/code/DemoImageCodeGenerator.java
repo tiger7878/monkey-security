@@ -1,8 +1,7 @@
 package com.monkey.code;
 
-import com.monkey.security.core.validate.code.ImageCode;
+import com.monkey.security.core.validate.code.image.ImageCode;
 import com.monkey.security.core.validate.code.ValidateCodeGenerator;
-import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.ServletWebRequest;
 
 /**
