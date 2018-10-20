@@ -1,8 +1,10 @@
 package com.monkey.security.browser;
 
-import com.monkey.security.browser.authentication.MonkeyAuthenctiationFailureHandler;
+import com.monkey.security.browser.authentication.MonkeyAuthenticationFailureHandler;
 import com.monkey.security.browser.authentication.MonkeyAuthenticationSuccessHandler;
+import com.monkey.security.core.authentication.mobile.SmsCodeAuthenticationSecurityConfig;
 import com.monkey.security.core.properties.SecurityProperties;
+import com.monkey.security.core.validate.code.SmsCodeFilter;
 import com.monkey.security.core.validate.code.ValidateCodeFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -28,7 +30,10 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
     private MonkeyAuthenticationSuccessHandler monkeyAuthenticationSuccessHandler;//登录成功的处理
 
     @Autowired
-    private MonkeyAuthenctiationFailureHandler monkeyAuthenctiationFailureHandler;//登录失败的处理
+    private MonkeyAuthenticationFailureHandler monkeyAuthenticationFailureHandler;//登录失败的处理
+
+    @Autowired
+    private SmsCodeAuthenticationSecurityConfig smsCodeAuthenticationSecurityConfig;//短信认证安全配置文件
 
     //密码加解密用它
     @Bean
@@ -39,18 +44,25 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        //创建验证码对象
+        //验证码认证过滤器
         ValidateCodeFilter validateCodeFilter=new ValidateCodeFilter();
-        validateCodeFilter.setAuthenticationFailureHandler(monkeyAuthenctiationFailureHandler);
+        validateCodeFilter.setAuthenticationFailureHandler(monkeyAuthenticationFailureHandler);
         validateCodeFilter.setSecurityProperties(securityProperties);
         validateCodeFilter.afterPropertiesSet();
 
-        http.addFilterBefore(validateCodeFilter, UsernamePasswordAuthenticationFilter.class)//在UsernamePasswordAuthenticationFilter之前添加ValidateCodeFilter过滤器
+        //短信验认证过滤器
+        SmsCodeFilter smsCodeFilter=new SmsCodeFilter();
+        smsCodeFilter.setAuthenticationFailureHandler(monkeyAuthenticationFailureHandler);
+        smsCodeFilter.setSecurityProperties(securityProperties);
+        smsCodeFilter.afterPropertiesSet();
+
+        http.addFilterBefore(smsCodeFilter,UsernamePasswordAuthenticationFilter.class)//添加短信认证过滤器
+                .addFilterBefore(validateCodeFilter, UsernamePasswordAuthenticationFilter.class)//在UsernamePasswordAuthenticationFilter之前添加ValidateCodeFilter过滤器
                 .formLogin()//form表单认证-页面
                 .loginPage("/authentication/require")//自定义登录页面：在resources文件夹下
                 .loginProcessingUrl("/authentication/form")//处理登录的url地址 spring security的
                 .successHandler(monkeyAuthenticationSuccessHandler)//登录成功的处理
-                .failureHandler(monkeyAuthenctiationFailureHandler)//登录失败的处理
+                .failureHandler(monkeyAuthenticationFailureHandler)//登录失败的处理
 //          http.httpBasic()//basic认证-弹框
                 .and()
                 .authorizeRequests()
@@ -59,6 +71,7 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
                         "/code/*").permitAll()//登录页面、验证码接口不需要认证就可以访问
                 .anyRequest().authenticated()//所有请求都需要认证
                 .and()
-                .csrf().disable();//先禁用csrf的防护，后面再开启
+                .csrf().disable()//先禁用csrf的防护，后面再开启
+                .apply(smsCodeAuthenticationSecurityConfig);//添加短信认证安全配置类
     }
 }

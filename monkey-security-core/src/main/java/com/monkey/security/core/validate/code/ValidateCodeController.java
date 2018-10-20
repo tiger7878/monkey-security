@@ -19,8 +19,6 @@ import java.util.Map;
 @RestController
 public class ValidateCodeController {
 
-    public static final String SESSION_KEY = "SESSION_KEY_IMAGE_CODE";
-
     /**
      * 依赖查找：收集系统中所有的 ValidateCodeProcessor 接口的实现，key是名字
      */

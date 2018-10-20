@@ -22,8 +22,8 @@ import java.io.IOException;
  * @author: monkey
  * @date: 2018/10/10 21:30
  */
-@Component("monkeyAuthenctiationFailureHandler")
-public class MonkeyAuthenctiationFailureHandler extends SimpleUrlAuthenticationFailureHandler {
+@Component("monkeyAuthenticationFailureHandler")
+public class MonkeyAuthenticationFailureHandler extends SimpleUrlAuthenticationFailureHandler {
 
     private Logger logger= LoggerFactory.getLogger(getClass());
 
