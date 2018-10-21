@@ -1,6 +1,7 @@
 package com.monkey.security.browser;
 
 import com.monkey.security.browser.support.SimpleResponse;
+import com.monkey.security.core.properties.SecurityConstants;
 import com.monkey.security.core.properties.SecurityProperties;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
@@ -39,7 +40,7 @@ public class BrowserSecurityController {
     @Autowired
     private SecurityProperties securityProperties;
 
-    @RequestMapping("/authentication/require")
+    @RequestMapping(SecurityConstants.DEFAULT_UNAUTHENTICATION_URL)
     @ResponseStatus(code = HttpStatus.UNAUTHORIZED)
     public SimpleResponse requiredAuthentication(HttpServletRequest request, HttpServletResponse response) throws IOException {
         //能否进入这里是由spring security来判断的，我们在config中配置好就行

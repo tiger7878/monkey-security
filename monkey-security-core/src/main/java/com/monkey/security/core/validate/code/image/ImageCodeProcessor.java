@@ -11,7 +11,7 @@ import javax.imageio.ImageIO;
  * @author: monkey
  * @date: 2018/10/18 22:47
  */
-@Component
+@Component("imageValidateCodeProcessor")
 public class ImageCodeProcessor extends AbstractValidateCodeProcessor<ImageCode> {
 
     @Override

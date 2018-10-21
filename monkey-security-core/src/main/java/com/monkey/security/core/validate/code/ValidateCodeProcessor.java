@@ -3,9 +3,10 @@ package com.monkey.security.core.validate.code;
 import org.springframework.web.context.request.ServletWebRequest;
 
 /**
- * 校验码处理器，封装不同校验码的处理逻辑
- * 生成的流程发送变化，不是创建、保存、发送，实现它就可以
+ * 校验码处理器，封装不同校验码的创建和校验处理逻辑
+ * 如果生成的流程发送变化，不是创建、保存、发送，实现它就可以
  * 这个是在模板方法上再封装一个接口，更加灵活，比如说：网关和直连
+ *
  * @author: monkey
  * @date: 2018/10/18 22:05
  */
@@ -23,4 +24,9 @@ public interface ValidateCodeProcessor {
      */
     void create(ServletWebRequest request)throws Exception;
 
+    /**
+     * 校验验证码
+     * @param request
+     */
+    void validate(ServletWebRequest request);
 }

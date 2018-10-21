@@ -22,6 +22,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
+ * 这个类作废，不用了，由ValidateCodeFilter替代
+ *
  * 短信验证码过滤器
  * 每次请求过来先到这里
  * 实现InitializingBean可以在其他参数初始化以后初始化我们需要拦截的url
