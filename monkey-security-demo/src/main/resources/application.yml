@@ -18,13 +18,17 @@ management:
       enabled: false
 
 #配置安全相关
-monkey:
-  security:
+#monkey:
+#  security:
 #    browser:
 #      loginPage: /demo-signIn.html #自定义登录页面，如果不配置就用默认的标准登录页
 #      loginType: REDIRECT #登录方式页面跳转，默认json
-    code:
-      image:
-        length: 6
-        width: 100
-        url: /user/* #配置哪些接口需要被验证码拦截
+#    code:
+#      image:
+#        length: 6
+#        width: 100
+#        url: /user/* #配置哪些接口需要被验证码拦截
+
+server:
+  session:
+    timeout: 10 #单位是秒，session超时时间，在spring boot中session超时时间最少是1分钟，看源码可知道
