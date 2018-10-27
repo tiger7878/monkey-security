@@ -66,6 +66,7 @@ public class BrowserSecurityConfig extends AbstractChannelSecurityConfig {
                 .invalidSessionUrl("/session/invalid") //session失效的后跳转的地址
                 .maximumSessions(1) //同一个用户的最大session数量
                 .expiredSessionStrategy(new MonkeyExpiredSessionStrategy()) //并发控制触发事件
+                .maxSessionsPreventsLogin(true)//加了该配置以后就是同一个账号后面的登录不能踢掉前面的登录，没有加之前是可以踢掉的
                 .and()
                 .and()
                 .authorizeRequests()
