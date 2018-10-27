@@ -2,6 +2,7 @@ package com.monkey.security.browser;
 
 import com.monkey.security.browser.authentication.MonkeyAuthenticationFailureHandler;
 import com.monkey.security.browser.authentication.MonkeyAuthenticationSuccessHandler;
+import com.monkey.security.browser.session.MonkeyExpiredSessionStrategy;
 import com.monkey.security.core.authentication.AbstractChannelSecurityConfig;
 import com.monkey.security.core.authentication.mobile.SmsCodeAuthenticationSecurityConfig;
 import com.monkey.security.core.properties.SecurityConstants;
@@ -63,6 +64,9 @@ public class BrowserSecurityConfig extends AbstractChannelSecurityConfig {
                 .and()
                 .sessionManagement()
                 .invalidSessionUrl("/session/invalid") //session失效的后跳转的地址
+                .maximumSessions(1) //同一个用户的最大session数量
+                .expiredSessionStrategy(new MonkeyExpiredSessionStrategy()) //并发控制触发事件
+                .and()
                 .and()
                 .authorizeRequests()
                 .antMatchers(
