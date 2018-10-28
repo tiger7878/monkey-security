@@ -18,6 +18,8 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.session.InvalidSessionStrategy;
+import org.springframework.security.web.session.SessionInformationExpiredStrategy;
 
 /**
  * 配置类
@@ -43,6 +45,11 @@ public class BrowserSecurityConfig extends AbstractChannelSecurityConfig {
     @Autowired
     private ValidateCodeSecurityConfig validateCodeSecurityConfig;
 
+    @Autowired
+    private InvalidSessionStrategy invalidSessionStrategy;//session失效策略
+
+    @Autowired
+    private SessionInformationExpiredStrategy sessionInformationExpiredStrategy;//session并发过期策略
 
     //密码加解密用它
     @Bean
@@ -63,10 +70,10 @@ public class BrowserSecurityConfig extends AbstractChannelSecurityConfig {
                 .apply(smsCodeAuthenticationSecurityConfig)
                 .and()
                 .sessionManagement()
-                .invalidSessionUrl("/session/invalid") //session失效的后跳转的地址
-                .maximumSessions(1) //同一个用户的最大session数量
-                .expiredSessionStrategy(new MonkeyExpiredSessionStrategy()) //并发控制触发事件
-                .maxSessionsPreventsLogin(true)//加了该配置以后就是同一个账号后面的登录不能踢掉前面的登录，没有加之前是可以踢掉的
+                .invalidSessionStrategy(invalidSessionStrategy)
+                .maximumSessions(securityProperties.getBrowser().getSession().getMaximumSessions()) //同一个用户的最大session数量
+                .expiredSessionStrategy(sessionInformationExpiredStrategy) //并发控制触发事件
+                .maxSessionsPreventsLogin(securityProperties.getBrowser().getSession().isMaxSessionsPreventsLogin())//加了该配置以后就是同一个账号后面的登录不能踢掉前面的登录，没有加之前是可以踢掉的
                 .and()
                 .and()
                 .authorizeRequests()
@@ -75,7 +82,7 @@ public class BrowserSecurityConfig extends AbstractChannelSecurityConfig {
                         SecurityConstants.DEFAULT_LOGIN_PROCESSING_URL_MOBILE,
                         securityProperties.getBrowser().getLoginPage(),
                         SecurityConstants.DEFAULT_VALIDATE_CODE_URL_PREFIX + "/*",
-                        "/session/invalid")
+                        securityProperties.getBrowser().getSession().getSessionInvalidUrl())
                 .permitAll()//登录页面、验证码接口不需要认证就可以访问
                 .anyRequest()
                 .authenticated()//所有请求都需要认证

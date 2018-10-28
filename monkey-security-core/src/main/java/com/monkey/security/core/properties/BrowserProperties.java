@@ -8,6 +8,8 @@ package com.monkey.security.core.properties;
  */
 public class BrowserProperties {
 
+    private SessionProperties session=new SessionProperties();
+
     private String loginPage = SecurityConstants.DEFAULT_LOGIN_PAGE_URL;//默认的登录页面
 
     private LoginResponseType loginType = LoginResponseType.JSON;//默认json
@@ -26,5 +28,13 @@ public class BrowserProperties {
 
     public void setLoginType(LoginResponseType loginType) {
         this.loginType = loginType;
+    }
+
+    public SessionProperties getSession() {
+        return session;
+    }
+
+    public void setSession(SessionProperties session) {
+        this.session = session;
     }
 }
