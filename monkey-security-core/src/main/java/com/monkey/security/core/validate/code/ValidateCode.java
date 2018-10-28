@@ -1,5 +1,6 @@
 package com.monkey.security.core.validate.code;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
@@ -7,7 +8,7 @@ import java.time.LocalDateTime;
  * @author: monkey
  * @date: 2018/10/17 21:43
  */
-public class ValidateCode {
+public class ValidateCode implements Serializable {
 
     //验证码内容
     private String code;

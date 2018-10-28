@@ -60,9 +60,12 @@ public abstract class AbstractValidateCodeProcessor<C extends ValidateCode> impl
      * @param validateCode
      */
     private void save(ServletWebRequest request, C validateCode) {
+        //原来的图片验证码里面的图片对象是没有实现序列化接口，修改为保存到redis中会报错
+        //本次做一个修改，保存验证码时只保存验证码的内容和过期时间
+        ValidateCode code=new ValidateCode(validateCode.getCode(),validateCode.getExpireTime());
         sessionStrategy.setAttribute(request,
                 SESSION_KEY_PREFFIX + getProecessType(request).toUpperCase(),
-                validateCode);
+                code);
     }
 
     /**

@@ -5,7 +5,7 @@ spring:
     username: root
     password: 123456
   session:
-    store-type: none #关闭spring session
+    store-type: redis # none:关闭spring session
 
 #security:
 #  basic:
@@ -30,7 +30,7 @@ monkey:
 #        url: /user/* #配置哪些接口需要被验证码拦截
       session:
         sessionInvalidUrl: /demo-session-invalid.html
-
 server:
   session:
     timeout: 600 #单位是秒，session超时时间，在spring boot中session超时时间最少是1分钟，看源码可知道
+#  port: 8088
