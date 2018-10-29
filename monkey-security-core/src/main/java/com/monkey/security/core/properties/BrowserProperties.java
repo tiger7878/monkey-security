@@ -14,6 +14,8 @@ public class BrowserProperties {
 
     private LoginResponseType loginType = LoginResponseType.JSON;//默认json
 
+    private String signOutUrl;//退出的url地址
+
     public String getLoginPage() {
         return loginPage;
     }
@@ -36,5 +38,13 @@ public class BrowserProperties {
 
     public void setSession(SessionProperties session) {
         this.session = session;
+    }
+
+    public String getSignOutUrl() {
+        return signOutUrl;
+    }
+
+    public void setSignOutUrl(String signOutUrl) {
+        this.signOutUrl = signOutUrl;
     }
 }

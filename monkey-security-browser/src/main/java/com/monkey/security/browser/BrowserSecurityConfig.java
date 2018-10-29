@@ -18,6 +18,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 import org.springframework.security.web.session.InvalidSessionStrategy;
 import org.springframework.security.web.session.SessionInformationExpiredStrategy;
 
@@ -51,6 +52,9 @@ public class BrowserSecurityConfig extends AbstractChannelSecurityConfig {
     @Autowired
     private SessionInformationExpiredStrategy sessionInformationExpiredStrategy;//session并发过期策略
 
+    @Autowired
+    private LogoutSuccessHandler logoutSuccessHandler;//退出成功后的控制器
+
     //密码加解密用它
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -66,27 +70,34 @@ public class BrowserSecurityConfig extends AbstractChannelSecurityConfig {
 
         //通过apply引入不同层级的配置文件
         http.apply(validateCodeSecurityConfig)
-                .and()
+                    .and()
                 .apply(smsCodeAuthenticationSecurityConfig)
-                .and()
+                    .and()
                 .sessionManagement()
-                .invalidSessionStrategy(invalidSessionStrategy)
-                .maximumSessions(securityProperties.getBrowser().getSession().getMaximumSessions()) //同一个用户的最大session数量
-                .expiredSessionStrategy(sessionInformationExpiredStrategy) //并发控制触发事件
-                .maxSessionsPreventsLogin(securityProperties.getBrowser().getSession().isMaxSessionsPreventsLogin())//加了该配置以后就是同一个账号后面的登录不能踢掉前面的登录，没有加之前是可以踢掉的
-                .and()
-                .and()
+                    .invalidSessionStrategy(invalidSessionStrategy)
+                    .maximumSessions(securityProperties.getBrowser().getSession().getMaximumSessions()) //同一个用户的最大session数量
+                    .expiredSessionStrategy(sessionInformationExpiredStrategy) //并发控制触发事件
+                    .maxSessionsPreventsLogin(securityProperties.getBrowser().getSession().isMaxSessionsPreventsLogin())//加了该配置以后就是同一个账号后面的登录不能踢掉前面的登录，没有加之前是可以踢掉的
+                    .and()
+                    .and()
+                .logout()
+                    .logoutUrl("/signOut")//自定义退出的url地址，默认logout
+                    .logoutSuccessHandler(logoutSuccessHandler)//退出成功后的处理器，控制跳转页面还是响应json
+//                    .logoutSuccessUrl() //它和logoutSuccessHandler不能同时存在
+                    .deleteCookies("JSESSIONID") //退出成功后要删除的cookie名，可以多条
+                    .and()
                 .authorizeRequests()
-                .antMatchers(
+                    .antMatchers(
                         SecurityConstants.DEFAULT_UNAUTHENTICATION_URL,
                         SecurityConstants.DEFAULT_LOGIN_PROCESSING_URL_MOBILE,
                         securityProperties.getBrowser().getLoginPage(),
                         SecurityConstants.DEFAULT_VALIDATE_CODE_URL_PREFIX + "/*",
-                        securityProperties.getBrowser().getSession().getSessionInvalidUrl())
-                .permitAll()//登录页面、验证码接口不需要认证就可以访问
+                        securityProperties.getBrowser().getSession().getSessionInvalidUrl(),
+                            securityProperties.getBrowser().getSignOutUrl())
+                    .permitAll()//登录页面、验证码接口不需要认证就可以访问
                 .anyRequest()
-                .authenticated()//所有请求都需要认证
-                .and()
+                    .authenticated()//所有请求都需要认证
+                    .and()
                 .csrf().disable();//先禁用csrf的防护，后面再开启
     }
 }

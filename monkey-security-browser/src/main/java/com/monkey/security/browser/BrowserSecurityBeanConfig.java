@@ -1,5 +1,6 @@
 package com.monkey.security.browser;
 
+import com.monkey.security.browser.logout.MonkeyLogoutSuccessHander;
 import com.monkey.security.browser.session.MonkeyExpiredSessionStrategy;
 import com.monkey.security.browser.session.MonkeyInvalidSessionStrategy;
 import com.monkey.security.core.properties.SecurityProperties;
@@ -7,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 import org.springframework.security.web.session.InvalidSessionStrategy;
 import org.springframework.security.web.session.SessionInformationExpiredStrategy;
 
@@ -36,4 +38,9 @@ public class BrowserSecurityBeanConfig {
         return new MonkeyExpiredSessionStrategy(securityProperties.getBrowser().getSession().getSessionInvalidUrl());
     }
 
+    @Bean
+    @ConditionalOnMissingBean(LogoutSuccessHandler.class)
+    public LogoutSuccessHandler logoutSuccessHandler(){
+        return new MonkeyLogoutSuccessHander(securityProperties.getBrowser().getSignOutUrl());
+    }
 }
