@@ -55,12 +55,6 @@ public class BrowserSecurityConfig extends AbstractChannelSecurityConfig {
     @Autowired
     private LogoutSuccessHandler logoutSuccessHandler;//退出成功后的控制器
 
-    //密码加解密用它
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        //它会随机生成盐+明文进行加解密，相同的明文每次生成的密文都不同，推荐用它，思路不错
-        return new BCryptPasswordEncoder();
-    }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {

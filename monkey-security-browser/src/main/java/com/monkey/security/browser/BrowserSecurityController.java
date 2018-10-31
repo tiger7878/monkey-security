@@ -1,6 +1,6 @@
 package com.monkey.security.browser;
 
-import com.monkey.security.browser.support.SimpleResponse;
+import com.monkey.security.core.support.SimpleResponse;
 import com.monkey.security.core.properties.SecurityConstants;
 import com.monkey.security.core.properties.SecurityProperties;
 import org.apache.commons.lang.StringUtils;

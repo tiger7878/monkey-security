@@ -1,9 +1,9 @@
-package com.monkey.security.browser.authentication;
+package com.monkey.security.app.authentication;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.monkey.security.core.support.SimpleResponse;
 import com.monkey.security.core.properties.LoginResponseType;
 import com.monkey.security.core.properties.SecurityProperties;
+import com.monkey.security.core.support.SimpleResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

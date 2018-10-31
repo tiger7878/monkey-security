@@ -1,4 +1,4 @@
-package com.monkey.security.browser.support;
+package com.monkey.security.core.support;
 
 /**
  * 简单的返回对象

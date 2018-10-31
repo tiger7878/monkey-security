@@ -1,4 +1,4 @@
-package com.monkey.security.browser;
+package com.monkey.security;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -44,6 +44,6 @@ public class MyUserDetailsService implements UserDetailsService {
         logger.info("数据库中的密码是："+password);
         return new User(username, password,
                 true, true, true, true,
-                AuthorityUtils.commaSeparatedStringToAuthorityList("admin"));
+                AuthorityUtils.commaSeparatedStringToAuthorityList("admin,ROLE_USER"));
     }
 }

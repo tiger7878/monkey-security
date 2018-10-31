@@ -5,7 +5,7 @@ spring:
     username: root
     password: 123456
   session:
-    store-type: redis # none:关闭spring session
+    store-type: none # none:关闭spring session
 
 #security:
 #  basic:
@@ -36,3 +36,10 @@ server:
   session:
     timeout: 600 #单位是秒，session超时时间，在spring boot中session超时时间最少是1分钟，看源码可知道
 #  port: 8088
+
+#这里是给应用配置client-id和client-secret的地方
+security:
+  oauth2:
+    client:
+      client-id: mkapp
+      client-secret: mkappSecret

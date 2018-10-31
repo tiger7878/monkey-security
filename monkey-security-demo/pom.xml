@@ -14,9 +14,16 @@
 
     <dependencies>
         <!--browser模块-->
-        <dependency>
+        <!--<dependency>
             <groupId>com.monkey.security</groupId>
             <artifactId>monkey-security-browser</artifactId>
+            <version>${project.version}</version>
+        </dependency>-->
+
+        <!--app模块-->
+        <dependency>
+            <groupId>com.monkey.security</groupId>
+            <artifactId>monkey-security-app</artifactId>
             <version>${project.version}</version>
         </dependency>
 
