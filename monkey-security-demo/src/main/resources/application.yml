@@ -31,15 +31,23 @@ monkey:
       session:
         sessionInvalidUrl: /demo-session-invalid.html #session失效的跳转页面
       signOutUrl: /demo-signOut.html #退出成功后的跳转页面
+    oauth2:
+      clients[0]: #多个应用的配置方式
+        clientId: mkapp
+        clientSecret: mkappSecret
+        accessTokenValiditySeconds: 7200
+      clients[1]:
+        clientId: test
+        clientSecret: test
 
 server:
   session:
     timeout: 600 #单位是秒，session超时时间，在spring boot中session超时时间最少是1分钟，看源码可知道
 #  port: 8088
 
-#这里是给应用配置client-id和client-secret的地方
-security:
-  oauth2:
-    client:
-      client-id: mkapp
-      client-secret: mkappSecret
+#这里是给应用配置client-id和client-secret的地方（这里是单个配置方法，但是使用配置类以后就不用在这里写了）
+#security:
+#  oauth2:
+#    client:
+#      client-id: mkapp
+#      client-secret: mkappSecret
