@@ -12,6 +12,7 @@ import org.springframework.security.oauth2.config.annotation.configurers.ClientD
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
+import org.springframework.security.oauth2.provider.token.TokenStore;
 
 /**
  * 认证服务器配置
@@ -32,9 +33,14 @@ public class MonkeyAuthorizationServerConfig extends AuthorizationServerConfigur
     @Autowired
     private SecurityProperties securityProperties;
 
+    @Autowired
+    private TokenStore tokenStore;
+
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
-        endpoints.authenticationManager(authenticationManager)
+        endpoints
+                .tokenStore(tokenStore)
+                .authenticationManager(authenticationManager)
                 .userDetailsService(userDetailsService);
     }
 
@@ -53,13 +59,13 @@ public class MonkeyAuthorizationServerConfig extends AuthorizationServerConfigur
         //多个应用的配置方式，从配置文件中读取
         InMemoryClientDetailsServiceBuilder builder = clients.inMemory();
         OAuth2ClientProperties[] clientProperties = securityProperties.getOauth2().getClients();
-        if (ArrayUtils.isNotEmpty(clientProperties)){
+        if (ArrayUtils.isNotEmpty(clientProperties)) {
             for (OAuth2ClientProperties clientProperty : clientProperties) {
                 builder.withClient(clientProperty.getClientId())
                         .secret(clientProperty.getClientSecret())
                         .accessTokenValiditySeconds(clientProperty.getAccessTokenValiditySeconds())
-                        .authorizedGrantTypes("refresh_token","password")
-                        .scopes("all","read","write");
+                        .authorizedGrantTypes("refresh_token", "password")
+                        .scopes("all", "read", "write");
             }
         }
     }
