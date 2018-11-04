@@ -89,7 +89,8 @@ public class MonkeyAuthorizationServerConfig extends AuthorizationServerConfigur
             for (OAuth2ClientProperties clientProperty : clientProperties) {
                 builder.withClient(clientProperty.getClientId())
                         .secret(clientProperty.getClientSecret())
-                        .accessTokenValiditySeconds(clientProperty.getAccessTokenValiditySeconds())
+                        .accessTokenValiditySeconds(clientProperty.getAccessTokenValiditySeconds())//令牌的有效期
+                        .refreshTokenValiditySeconds(2592000) //刷新令牌的有效期，建议设置长一些，一周或者一个月
                         .authorizedGrantTypes("refresh_token", "password")
                         .scopes("all", "read", "write");
             }
