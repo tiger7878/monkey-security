@@ -2,10 +2,12 @@ package com.monkey.security.app;
 
 import com.monkey.security.core.properties.SecurityProperties;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
+import org.springframework.security.oauth2.provider.token.TokenEnhancer;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
@@ -52,6 +54,11 @@ public class TokenStoreConfig {
             return jwtAccessTokenConverter;
         }
 
+        @Bean
+        @ConditionalOnMissingBean(name = "jwtTokenEnhancer") //这么写的目的是给一个默认的实现，但是别人可以覆盖它，定义自己的，架构思想
+        public TokenEnhancer jwtTokenEnhancer(){
+            return new MonkeyJwtTokenEnhancer();
+        }
     }
 
 }
