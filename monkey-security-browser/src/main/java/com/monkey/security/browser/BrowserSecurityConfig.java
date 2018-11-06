@@ -13,6 +13,7 @@ import com.monkey.security.core.validate.code.ValidateCodeSecurityConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -89,6 +90,7 @@ public class BrowserSecurityConfig extends AbstractChannelSecurityConfig {
                         securityProperties.getBrowser().getSession().getSessionInvalidUrl(),
                             securityProperties.getBrowser().getSignOutUrl())
                     .permitAll()//登录页面、验证码接口不需要认证就可以访问
+                .antMatchers(HttpMethod.GET,"/user/query").hasRole("ADMIN")//使用get访问/user/query，需要ADMIN权限
                 .anyRequest()
                     .authenticated()//所有请求都需要认证
                     .and()
