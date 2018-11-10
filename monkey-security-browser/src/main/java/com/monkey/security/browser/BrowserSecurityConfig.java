@@ -5,6 +5,7 @@ import com.monkey.security.browser.authentication.MonkeyAuthenticationSuccessHan
 import com.monkey.security.browser.session.MonkeyExpiredSessionStrategy;
 import com.monkey.security.core.authentication.AbstractChannelSecurityConfig;
 import com.monkey.security.core.authentication.mobile.SmsCodeAuthenticationSecurityConfig;
+import com.monkey.security.core.authorize.AuthorizeConfigManager;
 import com.monkey.security.core.properties.SecurityConstants;
 import com.monkey.security.core.properties.SecurityProperties;
 import com.monkey.security.core.validate.code.SmsCodeFilter;
@@ -56,6 +57,8 @@ public class BrowserSecurityConfig extends AbstractChannelSecurityConfig {
     @Autowired
     private LogoutSuccessHandler logoutSuccessHandler;//退出成功后的控制器
 
+    @Autowired
+    private AuthorizeConfigManager authorizeConfigManager; //认证的配置管理类
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -81,19 +84,9 @@ public class BrowserSecurityConfig extends AbstractChannelSecurityConfig {
 //                    .logoutSuccessUrl() //它和logoutSuccessHandler不能同时存在
                     .deleteCookies("JSESSIONID") //退出成功后要删除的cookie名，可以多条
                     .and()
-                .authorizeRequests()
-                    .antMatchers(
-                        SecurityConstants.DEFAULT_UNAUTHENTICATION_URL,
-                        SecurityConstants.DEFAULT_LOGIN_PROCESSING_URL_MOBILE,
-                        securityProperties.getBrowser().getLoginPage(),
-                        SecurityConstants.DEFAULT_VALIDATE_CODE_URL_PREFIX + "/*",
-                        securityProperties.getBrowser().getSession().getSessionInvalidUrl(),
-                            securityProperties.getBrowser().getSignOutUrl())
-                    .permitAll()//登录页面、验证码接口不需要认证就可以访问
-                .antMatchers(HttpMethod.GET,"/user/query").hasRole("ADMIN")//使用get访问/user/query，需要ADMIN权限
-                .anyRequest()
-                    .authenticated()//所有请求都需要认证
-                    .and()
                 .csrf().disable();//先禁用csrf的防护，后面再开启
+
+        //配置管理类来操作
+        authorizeConfigManager.config(http.authorizeRequests());
     }
 }

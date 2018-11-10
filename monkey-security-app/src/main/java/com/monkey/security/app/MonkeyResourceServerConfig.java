@@ -1,6 +1,7 @@
 package com.monkey.security.app;
 
 import com.monkey.security.core.authentication.mobile.SmsCodeAuthenticationSecurityConfig;
+import com.monkey.security.core.authorize.AuthorizeConfigManager;
 import com.monkey.security.core.properties.SecurityConstants;
 import com.monkey.security.core.properties.SecurityProperties;
 import com.monkey.security.core.validate.code.ValidateCodeSecurityConfig;
@@ -40,6 +41,9 @@ public class MonkeyResourceServerConfig extends ResourceServerConfigurerAdapter 
     @Autowired
     private ValidateCodeSecurityConfig validateCodeSecurityConfig;
 
+    @Autowired
+    private AuthorizeConfigManager authorizeConfigManager;
+
     @Override
     public void configure(HttpSecurity http) throws Exception {
 
@@ -53,18 +57,9 @@ public class MonkeyResourceServerConfig extends ResourceServerConfigurerAdapter 
                 .and()
                 .apply(smsCodeAuthenticationSecurityConfig)
                 .and()
-                .authorizeRequests()
-                .antMatchers(
-                        SecurityConstants.DEFAULT_UNAUTHENTICATION_URL,
-                        SecurityConstants.DEFAULT_LOGIN_PROCESSING_URL_MOBILE,
-                        securityProperties.getBrowser().getLoginPage(),
-                        SecurityConstants.DEFAULT_VALIDATE_CODE_URL_PREFIX + "/*",
-                        securityProperties.getBrowser().getSession().getSessionInvalidUrl(),
-                        securityProperties.getBrowser().getSignOutUrl())
-                .permitAll()//登录页面、验证码接口不需要认证就可以访问
-                .anyRequest()
-                .authenticated()//所有请求都需要认证
-                .and()
                 .csrf().disable();//先禁用csrf的防护，后面再开启
+
+        //配置管理类来操作
+        authorizeConfigManager.config(http.authorizeRequests());
     }
 }

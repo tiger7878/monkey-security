@@ -44,6 +44,6 @@ public class MyUserDetailsService implements UserDetailsService {
         logger.info("数据库中的密码是："+password);
         return new User(username, password,
                 true, true, true, true,
-                AuthorityUtils.commaSeparatedStringToAuthorityList("ROLE_ADMIN,ROLE_USER"));//这里一般这么写ROLE_作为前缀
+                AuthorityUtils.commaSeparatedStringToAuthorityList("ROLE_USER"));//这里一般这么写ROLE_作为前缀，ROLE_ADMIN
     }
 }
