@@ -27,6 +27,13 @@
             <version>${project.version}</version>
         </dependency>-->
 
+        <!--authorize动态授权模块-->
+        <dependency>
+            <groupId>com.monkey.security</groupId>
+            <artifactId>monkey-security-authorize</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
         <!--aop-->
         <dependency>
             <groupId>org.springframework.boot</groupId>

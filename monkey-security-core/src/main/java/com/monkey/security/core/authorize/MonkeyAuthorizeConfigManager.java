@@ -5,6 +5,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.ExpressionUrlAuthorizationConfigurer;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -16,7 +17,7 @@ public class MonkeyAuthorizeConfigManager implements AuthorizeConfigManager {
 
     //依赖查找，收集到所有的AuthorizeConfigProvider，都添加到配置项中
     @Autowired
-    private Set<AuthorizeConfigProvider> authorizeConfigProviders;
+    private List<AuthorizeConfigProvider> authorizeConfigProviders;//指定顺序以后变成有序集合
 
     @Override
     public void config(ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry config) {
@@ -24,7 +25,7 @@ public class MonkeyAuthorizeConfigManager implements AuthorizeConfigManager {
             authorizeConfigProvider.config(config);
         }
         //其他的都得认证
-        config.anyRequest().authenticated();
+//        config.anyRequest().authenticated();//验证动态权限需要先注释掉
     }
 
 }

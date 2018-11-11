@@ -12,6 +12,7 @@
         <module>monkey-security-app</module>
         <module>monkey-security-browser</module>
         <module>monkey-security-demo</module>
+        <module>monkey-security-authorize</module>
     </modules>
     <packaging>pom</packaging>
     <description>父工程用于聚合用</description>
