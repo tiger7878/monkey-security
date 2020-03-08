@@ -28,11 +28,11 @@
         </dependency>-->
 
         <!--authorize动态授权模块-->
-        <dependency>
+        <!--<dependency>
             <groupId>com.monkey.security</groupId>
             <artifactId>monkey-security-authorize</artifactId>
             <version>${project.version}</version>
-        </dependency>
+        </dependency>-->
 
         <!--aop-->
         <dependency>

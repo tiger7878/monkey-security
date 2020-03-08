@@ -39,6 +39,8 @@ public class MyUserDetailsService implements UserDetailsService {
 //                AuthorityUtils.commaSeparatedStringToAuthorityList("admin"));
 
         //配置了PasswordEncoder以后对明文密码加解密操作
+        //测试发现，每次对于相同的字符串加密得到的是不同的密文，数据库中也不用保存加密用的盐，这种方法可以有效防止相同密码被识别出来
+        //注册时保存一次加密的字符串到数据库中即可，以后比对密码就交给spring security来进行，
         String password=passwordEncoder.encode("123456");//真实场景这一步在注册的时候做加密，然后保存到数据库中。
         // 这里实际是从数据库中读取加密后的密码。
         logger.info("数据库中的密码是："+password);

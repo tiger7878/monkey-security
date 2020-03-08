@@ -3,9 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <title>首页</title>
+    <script src="https://lib.sinaapp.com/js/jquery/2.0.2/jquery-2.0.2.min.js"></script>
+    <script type="text/javascript">
+        function submitImgSize1Upload() {
+            // var postData = function (form, callback) {
+                var form = document.getElementById("upload-form");//获取表单的数据
+                var formdata = new FormData(form);//格式化表单数据
+                $.ajax({
+                    url: "http://api.gdxllcn.com/file/imageUpload",
+                    type: "post",
+                    data: formdata,  //处理表单数据
+                    dataType: 'json',
+                    processData: false,
+                    contentType: false,
+                    success: function(data){
+                        alert(data);
+                    },
+                    error: function(data){
+                        console.log(data);
+                    }
+                })
+                // $(".submit-btn").on("click", function () {
+                //     postData($(this).parents("form")[0]);
+                // })
+            // }
+        }
+    </script>
 </head>
 <body>
     <h1>hello monkey !</h1>
     <a href="/signOut">退出</a>
+    <form id="upload-form" action="http://api.gdxllcn.com/file/imageUpload" method="post" enctype="multipart/form-data">
+        <p><input type="file" name="file"></p>
+        <p><input type="button" value="submit" onclick="submitImgSize1Upload()"></p>
+    </form>
 </body>
 </html>

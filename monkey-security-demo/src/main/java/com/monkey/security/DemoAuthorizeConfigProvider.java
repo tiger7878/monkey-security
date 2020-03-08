@@ -20,6 +20,9 @@ public class DemoAuthorizeConfigProvider implements AuthorizeConfigProvider {
 //        config.antMatchers("/user/*").hasRole("ADMIN");
 
         //验证数据库里面的动态权限
-        config.anyRequest().access("@rbacServiceImpl.hasPermission(request,authentication)");
+//        config.anyRequest().access("@rbacServiceImpl.hasPermission(request,authentication)");
+
+        //对swagger的放行
+        config.antMatchers("/swagger/**", "/swagger-ui.html", "/webjars/**").permitAll();
     }
 }
