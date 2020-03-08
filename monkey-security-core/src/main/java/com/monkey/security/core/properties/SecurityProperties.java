@@ -4,7 +4,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 
 /**
  * 统一的配置文件管理类
- *
+ * 说明：如果这个SecurityProperties不用这个名字，那么可以不用SecurityCoreConfig来让它生效，测试过
  * @author: monkey
  * @date: 2018/10/9 22:09
  */
@@ -12,6 +12,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 public class SecurityProperties {
 
     //以imooc.security.browser开头的配置项读取到这里
+    //这里new的好处是如果demo没有配置，也不会报错，因为有默认的实体
     private BrowserProperties browser = new BrowserProperties();
 
     //以imooc.security.code开头的验证码的配置项读取到这里
