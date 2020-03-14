@@ -1,7 +1,6 @@
 package com.monkey.security.core.validate.code;
 
 import com.monkey.security.core.properties.SecurityProperties;
-import com.monkey.security.core.validate.code.image.ImageCode;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
@@ -100,7 +99,7 @@ public class SmsCodeFilter extends OncePerRequestFilter implements InitializingB
             throw new ValidateCodeException("验证码不存在");
         }
 
-        if (codeInSession.isExpried()) {
+        if (codeInSession.isExpired()) {
             sessionStrategy.removeAttribute(request, ValidateCodeProcessor.SESSION_KEY_PREFFIX + "SMS");
             throw new ValidateCodeException("验证码已过期");
         }

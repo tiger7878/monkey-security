@@ -115,7 +115,7 @@ public abstract class AbstractValidateCodeProcessor<C extends ValidateCode> impl
             throw new ValidateCodeException("验证码不存在");
         }
 
-        if (codeInSession.isExpried()) {
+        if (codeInSession.isExpired()) {
 //            sessionStrategy.removeAttribute(request, sessionKey);
             validateCodeRepository.remove(request,codeType);
             throw new ValidateCodeException("验证码已过期");

@@ -15,7 +15,12 @@ public class ImageCode extends ValidateCode {
     //验证码图片
     private BufferedImage image;
 
-
+    /**
+     *
+     * @param image 图片
+     * @param code 验证码值
+     * @param expireIn 过期时间（单位：秒）
+     */
     public ImageCode(BufferedImage image, String code, int expireIn) {
         super(code,expireIn);
         this.image = image;

@@ -30,6 +30,7 @@ import java.util.Set;
 /**
  * 验证码过滤器
  * 每次请求过来先到这里
+ * OncePerRequestFilter 保证只被执行一次
  * 实现InitializingBean可以在其他参数初始化以后初始化我们需要拦截的url
  * 过滤器负责拦截需要验证码校验的url地址，然后把校验交给验证码处理器来完成
  * @author: monkey

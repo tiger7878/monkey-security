@@ -10,12 +10,21 @@ import java.time.LocalDateTime;
  */
 public class ValidateCode implements Serializable {
 
-    //验证码内容
+    /**
+     * 验证码内容
+     */
     private String code;
 
-    //验证码过期时间
+    /**
+     * 验证码过期时间
+     */
     private LocalDateTime expireTime;
 
+    /**
+     *
+     * @param code 验证码内容
+     * @param expireIn 过期时间（单位：秒）
+     */
     public ValidateCode(String code,int expireIn) {
         this.code = code;
         this.expireTime = LocalDateTime.now().plusSeconds(expireIn);//多少秒后过期
@@ -30,7 +39,8 @@ public class ValidateCode implements Serializable {
      * 判断验证码是否过期
      * @return
      */
-    public boolean isExpried(){
+    public boolean isExpired(){
+        //当前时间超过验证码的失效时间就表示验证过期了
         return LocalDateTime.now().isAfter(expireTime);
     }
 
