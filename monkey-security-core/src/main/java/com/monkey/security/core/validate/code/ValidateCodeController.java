@@ -33,9 +33,8 @@ public class ValidateCodeController {
      */
     @GetMapping("/code/{type}")
     public void createCode(HttpServletRequest request, HttpServletResponse response, @PathVariable String type) throws Exception {
-
+        //注意：在构造ServletWebRequest时记得把request和response都传进去，否则在获取时获取不到
         validateCodeProcessors.get(type+"ValidateCodeProcessor").create(new ServletWebRequest(request,response));
-
     }
 
 
