@@ -23,7 +23,6 @@ public class SmsCodeAuthenticationProvider implements AuthenticationProvider {
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
         Assert.isInstanceOf(SmsCodeAuthenticationToken.class,authentication,"Only SmsCodeAuthenticationToken is supported");
 
-
         UserDetails user=userDetailsService.loadUserByUsername((String) authentication.getPrincipal());
 
         if (user==null){
@@ -32,6 +31,7 @@ public class SmsCodeAuthenticationProvider implements AuthenticationProvider {
 
         //认证后的信息（注意：认证前Principal存放的是手机号码，认证后存放的是UserDetails）
         SmsCodeAuthenticationToken authenticationToken=new SmsCodeAuthenticationToken(user,user.getAuthorities());
+        //未认证时request相关信息已经存放到未认证的authentication中了，这里需要拷贝一份
         authenticationToken.setDetails(authentication.getDetails());
 
         return authenticationToken;
