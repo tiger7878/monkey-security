@@ -6,7 +6,7 @@ package com.monkey.security.core.properties;
  * @author: monkey
  * @date: 2018/10/14 15:39
  */
-public class ValidateCodeProperites {
+public class ValidateCodeProperties {
 
     private ImageCodeProperties image = new ImageCodeProperties();
 

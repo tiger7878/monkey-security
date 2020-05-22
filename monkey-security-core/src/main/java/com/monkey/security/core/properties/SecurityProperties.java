@@ -16,7 +16,7 @@ public class SecurityProperties {
     private BrowserProperties browser = new BrowserProperties();
 
     //以imooc.security.code开头的验证码的配置项读取到这里
-    private ValidateCodeProperites code = new ValidateCodeProperites();
+    private ValidateCodeProperties code = new ValidateCodeProperties();
 
     //oauth2相关配置
     private OAuth2Properties oauth2 = new OAuth2Properties();
@@ -29,11 +29,11 @@ public class SecurityProperties {
         this.browser = browser;
     }
 
-    public ValidateCodeProperites getCode() {
+    public ValidateCodeProperties getCode() {
         return code;
     }
 
-    public void setCode(ValidateCodeProperites code) {
+    public void setCode(ValidateCodeProperties code) {
         this.code = code;
     }
 
