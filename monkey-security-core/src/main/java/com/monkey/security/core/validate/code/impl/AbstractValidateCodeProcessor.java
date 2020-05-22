@@ -46,7 +46,7 @@ public abstract class AbstractValidateCodeProcessor<C extends ValidateCode> impl
      * @return
      */
     private C generate(ServletWebRequest request) {
-        String type = getProecessType(request);
+        String type = getProcessType(request);
         ValidateCodeGenerator validateCodeGenerator = validateCodeGenerators.get(type + "CodeGenerator");
         return (C) validateCodeGenerator.generate(request);
     }
@@ -62,7 +62,7 @@ public abstract class AbstractValidateCodeProcessor<C extends ValidateCode> impl
         //本次做一个修改，保存验证码时只保存验证码的内容和过期时间
         ValidateCode code=new ValidateCode(validateCode.getCode(),validateCode.getExpireTime());
         /*sessionStrategy.setAttribute(request,
-                SESSION_KEY_PREFFIX + getProecessType(request).toUpperCase(),
+                SESSION_KEY_PREFFIX + getProcessType(request).toUpperCase(),
                 code);*/
 
         validateCodeRepository.save(request,code,getValidateCodeType(request));
@@ -77,7 +77,7 @@ public abstract class AbstractValidateCodeProcessor<C extends ValidateCode> impl
      */
     protected abstract void send(ServletWebRequest request, C validateCode) throws Exception;
 
-    private String getProecessType(ServletWebRequest request) {
+    private String getProcessType(ServletWebRequest request) {
         return StringUtils.substringAfter(request.getRequest().getRequestURI(), "/code/");
     }
 
@@ -99,15 +99,15 @@ public abstract class AbstractValidateCodeProcessor<C extends ValidateCode> impl
         C codeInSession = (C) validateCodeRepository.get(request,codeType);
 
         //验证码的值
-        String codeInRequst;
+        String codeInRequest;
 
         try {
-            codeInRequst = ServletRequestUtils.getStringParameter(request.getRequest(), codeType.getParamNameOnValidate());
+            codeInRequest = ServletRequestUtils.getStringParameter(request.getRequest(), codeType.getParamNameOnValidate());
         } catch (ServletRequestBindingException e) {
             throw new ValidateCodeException("获取验证码的值失败");
         }
 
-        if (StringUtils.isBlank(codeInRequst)) {
+        if (StringUtils.isBlank(codeInRequest)) {
             throw new ValidateCodeException("验证码的值不能为空");
         }
 
@@ -121,7 +121,7 @@ public abstract class AbstractValidateCodeProcessor<C extends ValidateCode> impl
             throw new ValidateCodeException("验证码已过期");
         }
 
-        if (!StringUtils.equals(codeInSession.getCode(), codeInRequst)) {
+        if (!StringUtils.equals(codeInSession.getCode(), codeInRequest)) {
             throw new ValidateCodeException("验证码不匹配");
         }
 
