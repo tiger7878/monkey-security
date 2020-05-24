@@ -8,6 +8,7 @@ import org.springframework.security.web.authentication.AuthenticationFailureHand
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
 /**
+ * 安全配置类
  * @author: monkey
  * @date: 2018/10/21 15:57
  */

@@ -25,7 +25,7 @@ import org.springframework.security.web.session.InvalidSessionStrategy;
 import org.springframework.security.web.session.SessionInformationExpiredStrategy;
 
 /**
- * 配置类
+ * 浏览器项目安全配置类
  *
  * @author: monkey
  * @date: 2018/10/7 16:01

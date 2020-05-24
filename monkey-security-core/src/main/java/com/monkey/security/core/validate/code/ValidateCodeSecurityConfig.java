@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 import javax.servlet.Filter;
 
 /**
+ * 验证码安全配置类
  * @author: monkey
  * @date: 2018/10/21 16:15
  */
