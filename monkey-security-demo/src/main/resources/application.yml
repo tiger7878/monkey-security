@@ -31,7 +31,7 @@ monkey:
 #        url: /user/* #配置哪些接口需要被验证码拦截
       session:
         sessionInvalidUrl: /demo-session-invalid.html #session失效的跳转页面
-      signOutUrl: /demo-signOut.html #退出成功后的跳转页面
+#      signOutUrl: /demo-signOut.html #退出成功后的跳转页面
     oauth2:
       clients[0]: #多个应用的配置方式
         clientId: mkapp

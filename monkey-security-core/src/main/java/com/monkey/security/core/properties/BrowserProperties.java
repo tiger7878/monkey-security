@@ -8,13 +8,13 @@ package com.monkey.security.core.properties;
  */
 public class BrowserProperties {
 
-    private SessionProperties session=new SessionProperties();
+    private SessionProperties session = new SessionProperties();
 
     private String loginPage = SecurityConstants.DEFAULT_LOGIN_PAGE_URL;//默认的登录页面
 
     private LoginResponseType loginType = LoginResponseType.JSON;//默认json
 
-    private String signOutUrl;//退出的url地址
+    private String signOutUrl = "/demo-signOut.html";//这里需要提供一个默认的地址，而且要加入放行里面去
 
     public String getLoginPage() {
         return loginPage;

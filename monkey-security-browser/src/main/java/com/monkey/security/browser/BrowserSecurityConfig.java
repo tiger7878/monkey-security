@@ -73,16 +73,17 @@ public class BrowserSecurityConfig extends AbstractChannelSecurityConfig {
                     .and()
                 .sessionManagement()
                     .invalidSessionStrategy(invalidSessionStrategy)
-                    .maximumSessions(securityProperties.getBrowser().getSession().getMaximumSessions()) //同一个用户的最大session数量
-                    .expiredSessionStrategy(sessionInformationExpiredStrategy) //并发控制触发事件
-                    .maxSessionsPreventsLogin(securityProperties.getBrowser().getSession().isMaxSessionsPreventsLogin())//加了该配置以后就是同一个账号后面的登录不能踢掉前面的登录，没有加之前是可以踢掉的
+                    .maximumSessions(securityProperties.getBrowser().getSession().getMaximumSessions()) //同一个用户的最大session数量，也就是1个用户同时可以在几个浏览器上登录的控制
+                    .expiredSessionStrategy(sessionInformationExpiredStrategy) //并发控制触发事件，配置了maximumSessions才能配置它
+                    //加了配置为true以后就是同一个账号后面的登录不能踢掉前面的登录，没有加改配置之前是可以踢掉的
+                    .maxSessionsPreventsLogin(securityProperties.getBrowser().getSession().isMaxSessionsPreventsLogin())
                     .and()
                     .and()
                 .logout()
                     .logoutUrl("/signOut")//自定义退出的url地址，默认logout
                     .logoutSuccessHandler(logoutSuccessHandler)//退出成功后的处理器，控制跳转页面还是响应json
 //                    .logoutSuccessUrl() //它和logoutSuccessHandler不能同时存在
-                    .deleteCookies("JSESSIONID") //退出成功后要删除的cookie名，可以多条
+                    .deleteCookies("JSESSIONID") //退出成功后要删除的cookie名，可以多条，对于html页面来说，不配置它会跳转到session失效页面
                     .and()
                 .csrf().disable();//先禁用csrf的防护，后面再开启
 

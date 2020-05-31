@@ -1,6 +1,6 @@
 package com.monkey.security.browser;
 
-import com.monkey.security.browser.logout.MonkeyLogoutSuccessHander;
+import com.monkey.security.browser.logout.MonkeyLogoutSuccessHandler;
 import com.monkey.security.browser.session.MonkeyExpiredSessionStrategy;
 import com.monkey.security.browser.session.MonkeyInvalidSessionStrategy;
 import com.monkey.security.core.properties.SecurityProperties;
@@ -41,6 +41,6 @@ public class BrowserSecurityBeanConfig {
     @Bean
     @ConditionalOnMissingBean(LogoutSuccessHandler.class)
     public LogoutSuccessHandler logoutSuccessHandler(){
-        return new MonkeyLogoutSuccessHander(securityProperties.getBrowser().getSignOutUrl());
+        return new MonkeyLogoutSuccessHandler(securityProperties);
     }
 }
