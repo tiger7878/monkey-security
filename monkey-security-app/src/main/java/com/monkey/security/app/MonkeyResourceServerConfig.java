@@ -1,6 +1,7 @@
 package com.monkey.security.app;
 
 import com.monkey.security.core.authentication.mobile.SmsCodeAuthenticationSecurityConfig;
+import com.monkey.security.core.authentication.openid.OpenIdAuthenticationSecurityConfig;
 import com.monkey.security.core.authorize.AuthorizeConfigManager;
 import com.monkey.security.core.properties.SecurityConstants;
 import com.monkey.security.core.properties.SecurityProperties;
@@ -44,6 +45,9 @@ public class MonkeyResourceServerConfig extends ResourceServerConfigurerAdapter 
     @Autowired
     private AuthorizeConfigManager authorizeConfigManager;
 
+    @Autowired
+    private OpenIdAuthenticationSecurityConfig openIdAuthenticationSecurityConfig;//微信认证安全配置文件
+
     @Override
     public void configure(HttpSecurity http) throws Exception {
 
@@ -53,9 +57,11 @@ public class MonkeyResourceServerConfig extends ResourceServerConfigurerAdapter 
                 .successHandler(monkeyAuthenticationSuccessHandler)
                 .failureHandler(monkeyAuthenticationFailureHandler);
 
-                http.apply(validateCodeSecurityConfig)
+        http.apply(validateCodeSecurityConfig)
                 .and()
                 .apply(smsCodeAuthenticationSecurityConfig)
+                .and()
+                .apply(openIdAuthenticationSecurityConfig)
                 .and()
                 .csrf().disable();//先禁用csrf的防护，后面再开启
 

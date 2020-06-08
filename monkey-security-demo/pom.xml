@@ -14,18 +14,18 @@
 
     <dependencies>
         <!--browser模块-->
-        <dependency>
+        <!--<dependency>
             <groupId>com.monkey.security</groupId>
             <artifactId>monkey-security-browser</artifactId>
             <version>${project.version}</version>
-        </dependency>
+        </dependency>-->
 
         <!--app模块-->
-        <!--<dependency>
+        <dependency>
             <groupId>com.monkey.security</groupId>
             <artifactId>monkey-security-app</artifactId>
             <version>${project.version}</version>
-        </dependency>-->
+        </dependency>
 
         <!--authorize动态授权模块-->
         <!--<dependency>
