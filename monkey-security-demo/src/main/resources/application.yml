@@ -40,6 +40,15 @@ monkey:
       clients[1]:
         clientId: test
         clientSecret: test
+  #微信配置
+  wx:
+    #微信的appid
+    appid: wx6b7ceaa8d9a87338
+    appsecret: 161272424db506f2694fca16d53bc170
+    #获取code的scope
+    scope: snsapi_userinfo
+    #本网站api接口地址
+    web-api-domain: http://pdyfii.natappfree.cc/api
 
 server:
   session:

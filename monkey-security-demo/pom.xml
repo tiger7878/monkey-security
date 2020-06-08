@@ -11,6 +11,9 @@
 
     <artifactId>monkey-security-demo</artifactId>
     <description>示例模块</description>
+    <properties>
+        <fastjson.version>1.2.60</fastjson.version>
+    </properties>
 
     <dependencies>
         <!--browser模块-->
@@ -74,6 +77,17 @@
             <groupId>io.jsonwebtoken</groupId>
             <artifactId>jjwt</artifactId>
             <version>0.9.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>${fastjson.version}</version>
         </dependency>
 
         <!--test-->
