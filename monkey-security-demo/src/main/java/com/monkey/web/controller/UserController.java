@@ -72,7 +72,7 @@ public class UserController {
     /**
      * 获取认证后的用户信息 UserDetails
      * 这个没有上面那个那么全，根据需求决定响应什么
-     *
+     * 当用jwt后直接过去UserDetails得到的是null，网上有解决方案：https://blog.csdn.net/qq_39288456/article/details/105739223
      * @param userDetails 认证后的用户信息
      * @return
      */

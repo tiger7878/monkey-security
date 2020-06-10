@@ -17,6 +17,7 @@
     <packaging>pom</packaging>
     <description>父工程用于聚合用</description>
 
+    <!--版本对应关系 https://start.spring.io/actuator/info-->
     <dependencyManagement>
         <dependencies>
             <dependency>

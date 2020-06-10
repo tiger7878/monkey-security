@@ -35,6 +35,7 @@ public class TokenStoreConfig {
     }
 
     // 配置文件中 monkey.security.oauth2.storeType=jwt时就采用这个配置，matchIfMissing表示如果没有配置，也采用它
+    // 当用jwt后Controller直接过去UserDetails得到的是null，网上有解决方案：https://blog.csdn.net/qq_39288456/article/details/105739223
     @Configuration
     @ConditionalOnProperty(prefix = "monkey.security.oauth2", name = "storeType", havingValue = "jwt", matchIfMissing = true)
     public static class JwtTokenConfig {

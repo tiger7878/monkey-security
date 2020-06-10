@@ -1,6 +1,7 @@
 package com.monkey.security.core.validate.code.impl;
 
 import com.monkey.security.core.validate.code.*;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.ServletRequestBindingException;
@@ -15,6 +16,7 @@ import java.util.Map;
  * @author: monkey
  * @date: 2018/10/18 22:12
  */
+@Slf4j
 public abstract class AbstractValidateCodeProcessor<C extends ValidateCode> implements ValidateCodeProcessor {
 
     /**
@@ -60,12 +62,12 @@ public abstract class AbstractValidateCodeProcessor<C extends ValidateCode> impl
     private void save(ServletWebRequest request, C validateCode) {
         //原来的图片验证码里面的图片对象是没有实现序列化接口，修改为保存到redis中会报错
         //本次做一个修改，保存验证码时只保存验证码的内容和过期时间
-        ValidateCode code=new ValidateCode(validateCode.getCode(),validateCode.getExpireTime());
+        ValidateCode code = new ValidateCode(validateCode.getCode(), validateCode.getExpireTime());
         /*sessionStrategy.setAttribute(request,
                 SESSION_KEY_PREFFIX + getProcessType(request).toUpperCase(),
                 code);*/
-
-        validateCodeRepository.save(request,code,getValidateCodeType(request));
+        log.info("validate code : {}", validateCode.getCode());
+        validateCodeRepository.save(request, code, getValidateCodeType(request));
     }
 
     /**
@@ -96,7 +98,7 @@ public abstract class AbstractValidateCodeProcessor<C extends ValidateCode> impl
 
         //根据key从session中获取到验证码对象
 //        C codeInSession = (C) sessionStrategy.getAttribute(request, sessionKey);
-        C codeInSession = (C) validateCodeRepository.get(request,codeType);
+        C codeInSession = (C) validateCodeRepository.get(request, codeType);
 
         //验证码的值
         String codeInRequest;
@@ -117,7 +119,7 @@ public abstract class AbstractValidateCodeProcessor<C extends ValidateCode> impl
 
         if (codeInSession.isExpired()) {
 //            sessionStrategy.removeAttribute(request, sessionKey);
-            validateCodeRepository.remove(request,codeType);
+            validateCodeRepository.remove(request, codeType);
             throw new ValidateCodeException("验证码已过期");
         }
 
@@ -127,7 +129,7 @@ public abstract class AbstractValidateCodeProcessor<C extends ValidateCode> impl
 
         //验证码校验通过以后记得删除验证码，防止重复使用
 //        sessionStrategy.removeAttribute(request, sessionKey);
-        validateCodeRepository.remove(request,codeType);
+        validateCodeRepository.remove(request, codeType);
     }
 
     /**

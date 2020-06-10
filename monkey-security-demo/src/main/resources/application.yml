@@ -2,7 +2,7 @@ spring:
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
     url: jdbc:mysql://127.0.0.1:3306/spring_security_demo?useUnicode=yes&characterEncoding=UTF-8&useSSL=false
-    username: root
+    username: dev
     password: 123456
   session:
     store-type: none # none:关闭spring session
@@ -40,6 +40,7 @@ monkey:
       clients[1]:
         clientId: test
         clientSecret: test
+#      storeType: redis #不配置或者配置为jwt时使用jwt
   #微信配置
   wx:
     #微信的appid
