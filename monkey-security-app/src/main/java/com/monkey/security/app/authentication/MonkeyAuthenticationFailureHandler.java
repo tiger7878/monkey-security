@@ -19,33 +19,34 @@ import java.io.IOException;
 
 /**
  * 自定义登录失败处理
+ *
  * @author: monkey
  * @date: 2018/10/10 21:30
  */
 @Component("monkeyAuthenticationFailureHandler")
 public class MonkeyAuthenticationFailureHandler extends SimpleUrlAuthenticationFailureHandler {
 
-    private Logger logger= LoggerFactory.getLogger(getClass());
+    private Logger logger = LoggerFactory.getLogger(getClass());
 
     @Autowired
     private ObjectMapper objectMapper;
 
-    @Autowired
-    private SecurityProperties securityProperties;
+//    @Autowired
+//    private SecurityProperties securityProperties;
 
     @Override
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException, ServletException {
         logger.info("登录失败");
 
-        //判断是json方式还是页面跳转
-        if (LoginResponseType.JSON.equals(securityProperties.getBrowser().getLoginType())){
-            response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
-            response.setContentType("application/json;charset=UTF-8");
-            response.getWriter().write(objectMapper.writeValueAsString(new SimpleResponse(exception.getMessage())));
-        }else {
-            //页面跳转，去到默认的错误页
-            super.onAuthenticationFailure(request, response, exception);
-        }
+        //判断是json方式还是页面跳转---monkey 2020-6-11 10:49:27 app只会响应json
+//        if (LoginResponseType.JSON.equals(securityProperties.getBrowser().getLoginType())){
+        response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
+        response.setContentType("application/json;charset=UTF-8");
+        response.getWriter().write(objectMapper.writeValueAsString(new SimpleResponse(exception.getMessage())));
+//        }else {
+//            页面跳转，去到默认的错误页
+//            super.onAuthenticationFailure(request, response, exception);
+//        }
 
     }
 }
