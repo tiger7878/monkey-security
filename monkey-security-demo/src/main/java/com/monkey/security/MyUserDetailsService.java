@@ -44,6 +44,15 @@ public class MyUserDetailsService implements UserDetailsService {
         String password = passwordEncoder.encode("123456");//真实场景这一步在注册的时候做加密，然后保存到数据库中。
         // 这里实际是从数据库中读取加密后的密码。
         logger.info("数据库中的密码是：" + password);
+
+        //$2a$10$4gFJtcc52bEErY3/mjQgIuSBsqg9oSrsiUedkZtmJKD6vOndUzqqK
+        //$2a$10$x6XazBYOlAMvJGudH.GYu.WlJgusc/j2J650lN8CoQ7dmCQ056K9W
+
+        //修改密码时用
+        boolean matches = passwordEncoder.matches("123456",
+                "$2a$10$4gFJtcc52bEErY3/mjQgIuSBsqg9oSrsiUedkZtmJKD6vOndUzqqK");
+        logger.info("对比明文和加密后的密文是否匹配：{}", matches);
+
         //默认用户信息
 //        return new User(username, password,
 //                true, true, true, true,
