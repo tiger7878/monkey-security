@@ -12,7 +12,7 @@
     <artifactId>monkey-security-demo</artifactId>
     <description>示例模块</description>
     <properties>
-        <fastjson.version>1.2.60</fastjson.version>
+        <fastjson.version>1.2.83</fastjson.version>
     </properties>
 
     <dependencies>
